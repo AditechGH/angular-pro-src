@@ -19,14 +19,6 @@ import { User } from '../../model/user.model';
           #remember
           (checked)="rememberUser($event)"
         ></auth-remember>
-        <auth-remember
-          #remember
-          (checked)="rememberUser($event)"
-        ></auth-remember>
-        <auth-remember
-          #remember
-          (checked)="rememberUser($event)"
-        ></auth-remember>
         <button type="submit">Login</button>
       </auth-form>
     </div>
