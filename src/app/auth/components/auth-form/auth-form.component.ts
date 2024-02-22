@@ -1,22 +1,25 @@
 import { NgIf } from '@angular/common';
 import {
   AfterContentInit,
+  AfterViewInit,
   Component,
   ContentChildren,
   EventEmitter,
   Output,
-  QueryList
+  QueryList,
+  ViewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { AuthRememberComponent } from '../auth-remember/auth-remember.component';
+import { AuthMessageComponent } from '../auth-message/auth-message.component';
 
 import { User } from '../../model/user.model';
 
 @Component({
   selector: 'auth-form',
   standalone: true,
-  imports: [FormsModule, NgIf],
+  imports: [FormsModule, AuthMessageComponent, NgIf],
   template: `
     <div class="auth-form">
       <form (ngSubmit)="onSubmit(form.value)" #form="ngForm">
@@ -30,7 +33,11 @@ import { User } from '../../model/user.model';
           <input type="password" name="password" ngModel />
         </label>
         <ng-content select="auth-remember"></ng-content>
-        <div *ngIf="showMessage">You will be logged in for 30 days</div>
+        <auth-message
+          #message
+          [style.display]="showMessage ? 'inherit' : 'none'"
+        >
+        </auth-message>
         <ng-content select="button"></ng-content>
       </form>
     </div>
@@ -63,14 +70,23 @@ import { User } from '../../model/user.model';
     `,
   ],
 })
-export class AuthFormComponent implements AfterContentInit {
+export class AuthFormComponent implements AfterContentInit, AfterViewInit {
   showMessage: boolean = false;
+
+  @ViewChild('message', { static: true }) message!: AuthMessageComponent;
 
   @ContentChildren('remember') remember!: QueryList<AuthRememberComponent>;
 
   @Output() submitted: EventEmitter<User> = new EventEmitter<User>();
 
+  ngAfterViewInit(): void {
+    // this.message.days = 30;
+  }
+
   ngAfterContentInit(): void {
+    if (this.message) {
+      this.message.days = 30;
+    }
     if (this.remember) {
       this.remember.forEach((item) => {
         item.checked.subscribe(
