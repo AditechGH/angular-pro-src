@@ -1,27 +1,51 @@
-# AngularProSrc
+# Angular Fundamentals Seed
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.1.2.
+## Project Setup and Tooling
 
-## Development server
+### Tools
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+*Text editor*: Visual Studio Code, you can [download it here](http://code.visualstudio.com) for both Mac, Windows and Linux.
+*Browser*: Google Chrome, you can [download it here](https://www.google.com/chrome)
 
-## Code scaffolding
+### Prerequisites
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Please make sure that you have the following installed:
 
-## Build
+* Install the *latest version* of [Node.js](http://nodejs.org) (Mac or Windows)
+* Mac users can optionally `brew install node` if they have [brew](http://brew.sh) installed
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Project Install
 
-## Running unit tests
+To grab the seed project, either Fork this repo or [click here to download](https://github.com/AditechGH/angular-pro-src/archive/master.zip) the `.zip` folder and extract the files wherever you like on your machine.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+##### Step 1: Project Dependencies
 
-## Running end-to-end tests
+Now that we have a package manager, we can install the project dependencies. You can do this by running:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+```bash
+npm install
+```
 
-## Further help
+This will install our dependencies for running our Angular application.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+#### Step 2: Running the project
+
+To start the project in development, run:
+
+```
+npm run start
+```
+
+This will output some information about the project (such as the TypeScript version and build progress). Once you see "build completed", you are ready to code!
+
+Open your browser to [localhost:4200](http://localhost:4200) to start running the code.
+
+### Project Tooling
+
+The project uses `webpack` to build and compile all of our assets. This will do the following for us:
+
+* Compile all our TypeScript code into JavaScript (starting from `main.ts` and branching outwards from imported files)
+* Bundle all our JavaScript into one file to use
+* Allow us to use SASS for our component's CSS files
+* Provide the polyfills needed to run our app in all modern browsers
+* Mock a JSON backend using [json-server](https://github.com/typicode/json-server)
