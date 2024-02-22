@@ -9,17 +9,17 @@ import { User } from '../../model/user.model';
   imports: [FormsModule],
   template: `
     <div class="auth-form">
-      <form (ngSubmit)="onSubmit(form.value)" #form="ngForm">
-        <ng-content></ng-content>
+    <form (ngSubmit)="onSubmit(form.value)" #form="ngForm">
+        <ng-content select="h3"></ng-content>
         <label>
           Email address
-          <input type="email" name="email" ngModel />
+          <input type="email" name="email" ngModel>
         </label>
         <label>
           Password
-          <input type="password" name="password" ngModel />
+          <input type="password" name="password" ngModel>
         </label>
-        <button type="submit">Submit</button>
+        <ng-content select="button"></ng-content>
       </form>
     </div>
   `,
