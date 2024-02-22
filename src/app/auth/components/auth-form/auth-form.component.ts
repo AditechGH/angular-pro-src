@@ -2,17 +2,18 @@ import { NgIf } from '@angular/common';
 import {
   AfterContentInit,
   AfterViewInit,
+  ChangeDetectorRef,
   Component,
   ContentChildren,
   EventEmitter,
   Output,
   QueryList,
-  ViewChild,
+  ViewChildren
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { AuthRememberComponent } from '../auth-remember/auth-remember.component';
 import { AuthMessageComponent } from '../auth-message/auth-message.component';
+import { AuthRememberComponent } from '../auth-remember/auth-remember.component';
 
 import { User } from '../../model/user.model';
 
@@ -33,6 +34,16 @@ import { User } from '../../model/user.model';
           <input type="password" name="password" ngModel />
         </label>
         <ng-content select="auth-remember"></ng-content>
+        <auth-message
+          #message
+          [style.display]="showMessage ? 'inherit' : 'none'"
+        >
+        </auth-message>
+        <auth-message
+          #message
+          [style.display]="showMessage ? 'inherit' : 'none'"
+        >
+        </auth-message>
         <auth-message
           #message
           [style.display]="showMessage ? 'inherit' : 'none'"
@@ -73,20 +84,24 @@ import { User } from '../../model/user.model';
 export class AuthFormComponent implements AfterContentInit, AfterViewInit {
   showMessage: boolean = false;
 
-  @ViewChild('message', { static: true }) message!: AuthMessageComponent;
+  @ViewChildren('message') message!: QueryList<AuthMessageComponent>;
 
   @ContentChildren('remember') remember!: QueryList<AuthRememberComponent>;
 
   @Output() submitted: EventEmitter<User> = new EventEmitter<User>();
 
+  constructor(private cd: ChangeDetectorRef) {}
+
   ngAfterViewInit(): void {
-    // this.message.days = 30;
+    if (this.message) {
+      this.message.forEach((message) => {
+        message.days = 30;
+      });
+      this.cd.detectChanges();
+    }
   }
 
   ngAfterContentInit(): void {
-    if (this.message) {
-      this.message.days = 30;
-    }
     if (this.remember) {
       this.remember.forEach((item) => {
         item.checked.subscribe(
