@@ -1,12 +1,13 @@
+import { NgIf } from '@angular/common';
 import {
   AfterContentInit,
   Component,
-  ContentChild,
+  ContentChildren,
   EventEmitter,
   Output,
+  QueryList
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { NgIf } from '@angular/common';
 
 import { AuthRememberComponent } from '../auth-remember/auth-remember.component';
 
@@ -65,15 +66,17 @@ import { User } from '../../model/user.model';
 export class AuthFormComponent implements AfterContentInit {
   showMessage: boolean = false;
 
-  @ContentChild('remember') remember!: AuthRememberComponent;
+  @ContentChildren('remember') remember!: QueryList<AuthRememberComponent>;
 
   @Output() submitted: EventEmitter<User> = new EventEmitter<User>();
 
   ngAfterContentInit(): void {
     if (this.remember) {
-      this.remember.checked.subscribe(
-        (checked: boolean) => (this.showMessage = checked)
-      );
+      this.remember.forEach((item) => {
+        item.checked.subscribe(
+          (checked: boolean) => (this.showMessage = checked)
+        );
+      });
     }
   }
 
