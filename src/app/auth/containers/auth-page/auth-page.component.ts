@@ -9,10 +9,6 @@ import { User } from '../../model/user.model';
   standalone: true,
   template: `
     <div class="auth-page">
-      <auth-form (submitted)="createUser($event)">
-        <h3>Create account</h3>
-        <button type="submit">Join us</button>
-      </auth-form>
       <auth-form (submitted)="loginUser($event)">
         <h3>Login</h3>
         <auth-remember
