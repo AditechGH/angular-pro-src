@@ -19,7 +19,7 @@ import { User } from '../../model/user.model';
       <auth-form 
         (submitted)="loginUser($event)">
         <h3>Login</h3>
-        <auth-remember
+        <auth-remember #remember
           (checked)="rememberUser($event)">
         </auth-remember>
         <button type="submit">
