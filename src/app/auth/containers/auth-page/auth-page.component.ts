@@ -16,10 +16,17 @@ import { User } from '../../model/user.model';
   template: `
     <div class="auth-page">
       <button (click)="destroyComponent()">Destroy</button>
+      <button (click)="moveComponent()">Move</button>
       <div #entry></div>
     </div>
   `,
-  styles: [``],
+  styles: [`
+    .auth-page {
+      button {
+        margin: 0 0 20px 30px;
+      }
+    }
+  `],
 })
 export class AuthPageComponent implements OnInit {
   component!: ComponentRef<AuthFormComponent>;
@@ -27,13 +34,20 @@ export class AuthPageComponent implements OnInit {
   constructor(private viewContainerRef: ViewContainerRef) {}
 
   ngOnInit(): void {
-    this.component = this.viewContainerRef.createComponent(AuthFormComponent);
+    this.viewContainerRef.createComponent(AuthFormComponent);
+    this.component = this.viewContainerRef.createComponent(AuthFormComponent, {
+      index: 0,
+    });
     this.component.instance.title = 'Create account';
     this.component.instance.submitted.subscribe(this.loginUser);
   }
 
   destroyComponent() {
     this.component.destroy();
+  }
+
+  moveComponent() {
+    this.viewContainerRef.move(this.component.hostView, 1);
   }
 
   loginUser(user: User) {
