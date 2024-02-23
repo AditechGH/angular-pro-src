@@ -1,21 +1,14 @@
-import {
-  AfterContentInit,
-  Component,
-  TemplateRef,
-  ViewChild,
-  ViewContainerRef,
-} from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'auth-page',
   standalone: true,
-  imports: [],
+  imports: [NgTemplateOutlet],
   template: `
     <div class="auth-page">
-      <div #entry></div>
-      <ng-template #tmpl let-name let-location="location">
-        {{ name }} : {{ location }}
-      </ng-template>
+      <ng-container [ngTemplateOutlet]="tmpl"></ng-container>
+      <ng-template #tmpl> Adnan Alhassan : Ghana, West Africa </ng-template>
     </div>
   `,
   styles: [
@@ -28,16 +21,4 @@ import {
     `,
   ],
 })
-export class AuthPageComponent implements AfterContentInit {
-  @ViewChild('tmpl', { read: TemplateRef, static: true })
-  tmpl!: TemplateRef<any>;
-
-  constructor(private viewContainerRef: ViewContainerRef) {}
-
-  ngAfterContentInit(): void {
-    this.viewContainerRef.createEmbeddedView(this.tmpl, {
-      $implicit: 'Adnan Alhassan',
-      location: 'West Africa, Ghana',
-    });
-  }
-}
+export class AuthPageComponent {}
