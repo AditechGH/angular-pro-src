@@ -7,8 +7,13 @@ import { Component } from '@angular/core';
   imports: [NgTemplateOutlet],
   template: `
     <div class="auth-page">
-      <ng-container [ngTemplateOutlet]="tmpl"></ng-container>
-      <ng-template #tmpl> Adnan Alhassan : Ghana, West Africa </ng-template>
+      <ng-container
+        [ngTemplateOutlet]="tmpl"
+        [ngTemplateOutletContext]="ctx"
+      ></ng-container>
+      <ng-template let-name let-location="location" #tmpl>
+        {{ name }} : {{ location }}
+      </ng-template>
     </div>
   `,
   styles: [
@@ -21,4 +26,9 @@ import { Component } from '@angular/core';
     `,
   ],
 })
-export class AuthPageComponent {}
+export class AuthPageComponent {
+  ctx = {
+    $implicit: 'Adnan Alhassan',
+    location: 'Ghana, West Africa',
+  };
+}
