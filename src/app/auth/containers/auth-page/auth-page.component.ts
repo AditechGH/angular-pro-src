@@ -20,6 +20,7 @@ export class AuthPageComponent implements OnInit {
 
   ngOnInit(): void {
     const component = this.viewContainerRef.createComponent(AuthFormComponent);
+    component.instance.title = 'Create account';
   }
 
   loginUser(user: User) {
