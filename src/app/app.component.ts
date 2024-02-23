@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
-import { AuthPageComponent } from './auth/containers/auth-page/auth-page.component';
+import { ExamplePageComponent } from './example/containers/example-page/example-page.component';
+
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, AuthPageComponent],
-  template: `<auth-page></auth-page>`,
+  imports: [RouterOutlet, ExamplePageComponent],
+  template: ` <example-page></example-page> `,
   styles: [``],
 })
 export class AppComponent {}
