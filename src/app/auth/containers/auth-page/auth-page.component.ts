@@ -1,45 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 
 import { AuthFormComponent } from '../../components/auth-form/auth-form.component';
-import { AuthRememberComponent } from '../../components/auth-remember/auth-remember.component';
 
 import { User } from '../../model/user.model';
+
 @Component({
   selector: 'auth-page',
   standalone: true,
+  imports: [],
   template: `
     <div class="auth-page">
-      <auth-form (submitted)="loginUser($event)">
-        <h3>Login</h3>
-        <auth-remember
-          #remember
-          (checked)="rememberUser($event)"
-        ></auth-remember>
-        <button type="submit">Login</button>
-      </auth-form>
+      <div #entry></div>
     </div>
   `,
-  styles: [
-    `
-      .auth-page {
-        display: flex;
-      }
-    `,
-  ],
-  imports: [AuthFormComponent, AuthRememberComponent],
+  styles: [``],
 })
-export class AuthPageComponent {
-  rememberMe: boolean = false;
+export class AuthPageComponent implements OnInit {
+  constructor(private viewContainerRef: ViewContainerRef) {}
 
-  rememberUser(remember: boolean) {
-    this.rememberMe = remember;
-  }
-
-  createUser(user: User) {
-    console.log('Create account', user);
+  ngOnInit(): void {
+    const component = this.viewContainerRef.createComponent(AuthFormComponent);
   }
 
   loginUser(user: User) {
-    console.log('Login', user, this.rememberMe);
+    console.log('Login', user);
   }
 }
