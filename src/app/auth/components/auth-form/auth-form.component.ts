@@ -13,7 +13,7 @@ import { User } from '../../model/user.model';
   template: `
     <div class="auth-form">
       <form (ngSubmit)="onSubmit(form.value)" #form="ngForm">
-        {{ title }}
+        <h3>{{ title }}</h3>
         <label>
           Email address
           <input type="email" name="email" ngModel #email />
