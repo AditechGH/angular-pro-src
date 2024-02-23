@@ -3,7 +3,7 @@ import {
   Component,
   TemplateRef,
   ViewChild,
-  ViewContainerRef
+  ViewContainerRef,
 } from '@angular/core';
 
 @Component({
@@ -13,7 +13,9 @@ import {
   template: `
     <div class="auth-page">
       <div #entry></div>
-      <ng-template #tmpl> Adnan Alhassan : Ghana, West Africa </ng-template>
+      <ng-template #tmpl let-name let-location="location">
+        {{ name }} : {{ location }}
+      </ng-template>
     </div>
   `,
   styles: [
@@ -33,6 +35,9 @@ export class AuthPageComponent implements AfterContentInit {
   constructor(private viewContainerRef: ViewContainerRef) {}
 
   ngAfterContentInit(): void {
-    this.viewContainerRef.createEmbeddedView(this.tmpl);
+    this.viewContainerRef.createEmbeddedView(this.tmpl, {
+      $implicit: 'Adnan Alhassan',
+      location: 'West Africa, Ghana',
+    });
   }
 }
