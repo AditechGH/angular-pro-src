@@ -1,11 +1,9 @@
 import {
   AfterContentInit,
   Component,
-  ComponentRef,
-  OnInit,
   TemplateRef,
   ViewChild,
-  ViewContainerRef,
+  ViewContainerRef
 } from '@angular/core';
 
 @Component({
