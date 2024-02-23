@@ -95,3 +95,14 @@
   h3 {
     margin-bottom: 20px;
   }
+
+  .users {
+    margin-top: 20px;
+    display: flex;
+  }
+  example-one {
+    background: rgba(0, 0, 0, 0.1);
+  }
+  example-one, example-two {
+    padding: 10px 15px;
+  }

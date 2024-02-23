@@ -1,22 +1,36 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+
+import { User } from '../../model/user.model';
 
 @Component({
   selector: 'example-one',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [],
   template: `
     <div class="example-one">
-      Example One
+      <h4>{{ user.name }}</h4>
+      <h5>{{ user.age }} years old</h5>
+      {{ user.location }} <br />
+      {{ user.email }}
+
+      <button (click)="update()">Internal update</button>
+      <p>* should not update</p>
     </div>
   `,
-  styles: [`
-  .example-one {
-    background: #9f72e6;
-    font-size: 19px;
-    color: #fff;
-    margin-bottom: 50px;
-    padding: 10px 20px;
-  }
-`]
+  styles: [
+    `
+      .example-one {
+        font-size: 19px;
+        margin-bottom: 10px;
+      }
+    `,
+  ],
 })
-export class OneComponent {}
+export class OneComponent {
+  @Input() user!: User;
+
+  update() {
+    this.user.name = 'Matt Skiba';
+  }
+}
