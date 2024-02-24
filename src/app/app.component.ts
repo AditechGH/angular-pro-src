@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
-import { ExamplePageComponent } from './example/containers/example-page/example-page.component';
+import { CreditCardComponent } from './credit-card/containers/credit-card/credit-card.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ExamplePageComponent],
-  template: ` <example-page></example-page> `,
+  imports: [RouterOutlet, CreditCardComponent],
+  template: `<app-credit-card></app-credit-card>`,
   styles: [``],
 })
 export class AppComponent {}
