@@ -1,4 +1,4 @@
-import { NgForOf } from '@angular/common';
+import { CurrencyPipe, NgForOf } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   AbstractControl,
@@ -7,17 +7,25 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 
+import { Product } from '../../models/product.interface';
+
 @Component({
   selector: 'stock-products',
   standalone: true,
-  imports: [ReactiveFormsModule, NgForOf],
+  imports: [ReactiveFormsModule, NgForOf, CurrencyPipe],
   template: `
     <div class="stock-product" [formGroup]="parent">
       <div formArrayName="stock">
         <div *ngFor="let item of stocks; let i = index">
           <div class="stock-product__content" [formGroupName]="i">
             <div class="stock-product__name">
-              {{ item.value.product_id }}
+              {{ getProduct(item.value.product_id)?.name }}
+            </div>
+            <div class="stock-product__price">
+              {{
+                getProduct(item.value.product_id)?.price
+                  | currency : 'USD' : true
+              }}
             </div>
             <input
               type="number"
@@ -36,8 +44,13 @@ import {
 })
 export class StockProductsComponent {
   @Input() parent!: FormGroup;
+  @Input() map!: Map<number, Product>;
 
   @Output() removed = new EventEmitter<any>();
+
+  getProduct(id: number) {
+    return this.map.get(id);
+  }
 
   onRemove(group: AbstractControl, index: number) {
     this.removed.emit({ group, index });
