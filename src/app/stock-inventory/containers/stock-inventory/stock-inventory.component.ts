@@ -1,6 +1,7 @@
-import { JsonPipe } from '@angular/common';
+import { CurrencyPipe, JsonPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
+  AbstractControl,
   FormArray,
   FormBuilder,
   FormGroup,
@@ -22,6 +23,7 @@ import { Stock } from '../../models/stock.interface';
   standalone: true,
   imports: [
     ReactiveFormsModule,
+    CurrencyPipe,
     JsonPipe,
     StockBranchComponent,
     StockProductsComponent,
@@ -45,6 +47,10 @@ import { Stock } from '../../models/stock.interface';
           (removed)="removeStock($event)"
         ></stock-products>
 
+        <div class="stock-inventory__price">
+          Total: {{ total | currency : 'USD' : 'symbol' }}
+        </div>
+
         <div class="stock-inventory__buttons">
           <button type="submit" [disabled]="form.invalid">Order stock</button>
         </div>
@@ -57,7 +63,7 @@ import { Stock } from '../../models/stock.interface';
 })
 export class StockInventoryComponent implements OnInit {
   products: Product[] = [];
-
+  total!: number;
   productMap!: Map<number, Product>;
 
   form = this.fb.group({
@@ -86,12 +92,26 @@ export class StockInventoryComponent implements OnInit {
         ]);
 
         this.productMap = new Map<number, Product>(myMap);
-        console.log(this.productMap, this.productMap.get(1));
         this.products = products;
-
         cart.forEach((item) => this.addStock(item));
+
+        this.calculateTotal(this.form.get('stock')?.value as Stock[]);
+        this.form
+          .get('stock')
+          ?.valueChanges.subscribe((value) =>
+            this.calculateTotal(value as Stock[])
+          );
       }
     );
+  }
+
+  calculateTotal(value: Stock[]) {
+    const total = value.reduce((prev, next) => {
+      return (
+        prev + next.quantity! * this.productMap.get(next.product_id!)!.price
+      );
+    }, 0);
+    this.total = total;
   }
 
   createStock(stock: Stock) {
