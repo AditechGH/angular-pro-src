@@ -1,13 +1,16 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 
-import { FilesComponent } from './files/containers/files/files.component';
+import { StockInventoryComponent } from './stock-inventory/containers/stock-inventory/stock-inventory.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, FilesComponent],
-  template: `<files></files>`,
+  imports: [StockInventoryComponent],
+  template: `
+    <div>
+      <stock-inventory></stock-inventory>
+    </div>
+  `,
   styles: [``],
 })
 export class AppComponent {}
