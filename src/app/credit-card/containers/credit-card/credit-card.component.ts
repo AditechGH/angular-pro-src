@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 
 import { CreditCardDirective } from '../../directives/credit-card.directive';
+import { TooltipDirective } from '../../directives/tooltip.directive';
 
 @Component({
   selector: 'app-credit-card',
   standalone: true,
-  imports: [CreditCardDirective],
+  imports: [CreditCardDirective, TooltipDirective],
   template: `
     <div>
       <label>
@@ -16,6 +17,13 @@ import { CreditCardDirective } from '../../directives/credit-card.directive';
           placeholder="Enter your 16-digit card number"
           credit-card
         />
+      </label>
+      <label tooltip="3 digits, back of your card" #myTooltip="tooltip">
+        Enter your security code
+        <span (mouseover)="myTooltip.show()" (mouseout)="myTooltip.hide()">
+          (?)
+        </span>
+        <input type="text" />
       </label>
     </div>
   `,
