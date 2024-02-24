@@ -1,6 +1,11 @@
 import { NgForOf } from '@angular/common';
-import { Component, Input } from '@angular/core';
-import { FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  AbstractControl,
+  FormArray,
+  FormGroup,
+  ReactiveFormsModule,
+} from '@angular/forms';
 
 @Component({
   selector: 'stock-products',
@@ -21,7 +26,7 @@ import { FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';
               max="1000"
               formControlName="quantity"
             />
-            <button type="button">Remove</button>
+            <button type="button" (click)="onRemove(item, i)">Remove</button>
           </div>
         </div>
       </div>
@@ -31,6 +36,12 @@ import { FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';
 })
 export class StockProductsComponent {
   @Input() parent!: FormGroup;
+
+  @Output() removed = new EventEmitter<any>();
+
+  onRemove(group: AbstractControl, index: number) {
+    this.removed.emit({ group, index });
+  }
 
   get stocks() {
     return (this.parent.get('stock') as FormArray).controls;
