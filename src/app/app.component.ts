@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
-import { CreditCardComponent } from './credit-card/containers/credit-card/credit-card.component';
+import { MyForComponent } from './my-for/containers/my-for/my-for.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CreditCardComponent],
-  template: `<app-credit-card></app-credit-card>`,
+  imports: [RouterOutlet, MyForComponent],
+  template: `<app-my-for></app-my-for>`,
   styles: [``],
 })
 export class AppComponent {}
