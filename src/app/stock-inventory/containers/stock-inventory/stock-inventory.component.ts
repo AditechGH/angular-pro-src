@@ -1,7 +1,6 @@
 import { CurrencyPipe, JsonPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
-  AbstractControl,
   FormArray,
   FormBuilder,
   FormGroup,
@@ -116,7 +115,7 @@ export class StockInventoryComponent implements OnInit {
 
   createStock(stock: Stock) {
     return this.fb.group({
-      product_id: stock.product_id || 0,
+      product_id: stock.product_id || '',
       quantity: stock.quantity || 10,
     });
   }
