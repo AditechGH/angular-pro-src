@@ -12,6 +12,7 @@ import { StockProductsComponent } from '../../components/stock-products/stock-pr
 import { StockSelectorComponent } from '../../components/stock-selector/stock-selector.component';
 
 import { Product } from '../../models/product.interface';
+import { Stock } from '../../models/stock.interface';
 
 @Component({
   selector: 'stock-inventory',
@@ -28,7 +29,11 @@ import { Product } from '../../models/product.interface';
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <stock-branch [parent]="form"></stock-branch>
 
-        <stock-selector [parent]="form" [products]="products"></stock-selector>
+        <stock-selector
+          [parent]="form"
+          [products]="products"
+          (added)="addStock($event)"
+        ></stock-selector>
 
         <stock-products [parent]="form"></stock-products>
 
@@ -63,11 +68,16 @@ export class StockInventoryComponent {
     ]),
   });
 
-  createStock(stock: { product_id?: any; quantity?: number }) {
+  createStock(stock: Stock) {
     return new FormGroup({
-      product_id: new FormControl(parseInt(stock.product_id, 10) || ''),
+      product_id: new FormControl(stock.product_id || 0),
       quantity: new FormControl(stock.quantity || 10),
     });
+  }
+
+  addStock(stock: Stock) {
+    const control = this.form.get('stock') as FormArray;
+    control.push(this.createStock(stock));
   }
 
   onSubmit() {
