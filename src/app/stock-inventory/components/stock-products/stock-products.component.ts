@@ -24,7 +24,7 @@ import { Product } from '../../models/product.interface';
             <div class="stock-product__price">
               {{
                 getProduct(item.value.product_id)?.price
-                  | currency : 'USD' : true
+                  | currency : 'USD' : 'symbol'
               }}
             </div>
             <input
