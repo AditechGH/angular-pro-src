@@ -1,13 +1,14 @@
 import { CurrencyPipe, JsonPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
+  AbstractControl,
   FormArray,
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { forkJoin } from 'rxjs';
+import { forkJoin, map } from 'rxjs';
 
 import { StockBranchComponent } from '../../components/stock-branch/stock-branch.component';
 import { StockProductsComponent } from '../../components/stock-products/stock-products.component';
@@ -71,7 +72,11 @@ export class StockInventoryComponent implements OnInit {
   form = this.fb.group(
     {
       store: this.fb.group({
-        branch: ['', [Validators.required, StockValidators.checkBranch]],
+        branch: [
+          '',
+          [Validators.required, StockValidators.checkBranch],
+          [this.validateBranch.bind(this)],
+        ],
         code: ['', Validators.required],
       }),
       selector: this.createStock({}),
@@ -110,10 +115,18 @@ export class StockInventoryComponent implements OnInit {
     );
   }
 
+  validateBranch(control: AbstractControl) {
+    return this.stockService
+      .checkBranchId(control.value)
+      .pipe(
+        map((response: boolean) => (response ? null : { unknownBranch: true }))
+      );
+  }
+
   calculateTotal(value: StockItem[]) {
     const total = value.reduce((prev, next) => {
       return (
-        prev + next.quantity! * this.productMap.get(next.product_id!)!.price
+        prev + next.quantity! * this.productMap.get(next.product_id!)!?.price
       );
     }, 0);
     this.total = total;
