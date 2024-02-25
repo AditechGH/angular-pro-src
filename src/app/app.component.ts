@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
+import { filter } from 'rxjs';
 
 import { MailAppComponent } from './mail/components/mail-app/mail-app.component';
+
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [MailAppComponent],
+  imports: [RouterModule, MailAppComponent],
   template: `
     <div class="app">
       <header>
@@ -25,5 +27,11 @@ import { MailAppComponent } from './mail/components/mail-app/mail-app.component'
 })
 export class AppComponent implements OnInit {
   constructor(private router: Router) {}
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe((event) => {
+          console.log(event)
+      });
+  }
 }
