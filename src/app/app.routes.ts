@@ -11,7 +11,9 @@ export const routes: Routes = [
   },
   {
     path: 'dashboard',
-    loadChildren: () => import('./dashboard/dashboard.routes').then((x) => x.routes)
+    data: { preload: true },
+    loadChildren: () =>
+      import('./dashboard/dashboard.routes').then((x) => x.routes),
   },
   {
     path: '**',
