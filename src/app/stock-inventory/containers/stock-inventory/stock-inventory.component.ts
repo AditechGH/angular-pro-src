@@ -5,6 +5,7 @@ import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
 import { forkJoin } from 'rxjs';
 
@@ -67,8 +68,8 @@ export class StockInventoryComponent implements OnInit {
 
   form = this.fb.group({
     store: this.fb.group({
-      branch: '',
-      code: '',
+      branch: ['', Validators.required],
+      code: ['', Validators.required],
     }),
     selector: this.createStock({}),
     stock: this.fb.array([]),
