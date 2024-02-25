@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, tap, throwError } from 'rxjs';
 
-import { Stock } from '../models/stock.interface';
+import { StockItem } from '../models/stock.interface';
 import { Product } from '../models/product.interface';
 
 @Injectable()
@@ -11,7 +11,7 @@ export class StockInventoryService {
 
   getCartItems() {
     return this.http
-      .get<Stock[]>(`/api/cart`)
+      .get<StockItem[]>(`/api/cart`)
       .pipe(catchError((err) => throwError(() => new Error(err.message))));
   }
 
