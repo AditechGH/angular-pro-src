@@ -13,6 +13,8 @@ import { StockBranchComponent } from '../../components/stock-branch/stock-branch
 import { StockProductsComponent } from '../../components/stock-products/stock-products.component';
 import { StockSelectorComponent } from '../../components/stock-selector/stock-selector.component';
 
+import { StockValidators } from './stock-inventory.validators';
+
 import { StockInventoryService } from '../../services/stock-inventory.service';
 
 import { Product } from '../../models/product.interface';
@@ -68,7 +70,7 @@ export class StockInventoryComponent implements OnInit {
 
   form = this.fb.group({
     store: this.fb.group({
-      branch: ['', Validators.required],
+      branch: ['', [Validators.required, StockValidators.checkBranch]],
       code: ['', Validators.required],
     }),
     selector: this.createStock({}),

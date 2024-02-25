@@ -13,6 +13,9 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
         <div class="error" *ngIf="required('branch')">
           Branch ID is required
         </div>
+        <div class="error" *ngIf="invalid">
+          Invalid branh code: 1 letter, 3 numbers
+        </div>
         <input type="text" placeholder="Manager Code" formControlName="code" />
         <div class="error" *ngIf="required('code')">Manager ID is required</div>
       </div>
@@ -22,6 +25,14 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 })
 export class StockBranchComponent {
   @Input() parent!: FormGroup;
+
+  get invalid() {
+    return (
+      this.parent.get('store.branch')!.hasError('invalidBranch') &&
+      this.parent.get('store.branch')!.dirty &&
+      !this.required('branch')
+    );
+  }
 
   required(name: string) {
     return (
