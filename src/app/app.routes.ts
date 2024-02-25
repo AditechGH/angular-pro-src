@@ -5,14 +5,9 @@ import { MailService } from './mail/mail.service';
 
 export const routes: Routes = [
   {
-    path: 'folder',
+    path: '',
     loadChildren: () => import('./mail/mail.routes').then((x) => x.routes),
     providers: [importProvidersFrom(HttpClientModule), MailService],
-  },
-  {
-    path: '',
-    pathMatch: 'full',
-    redirectTo: 'folder',
   },
   {
     path: '**',
