@@ -2,12 +2,14 @@ import { NgForOf } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 
+import { StockCounterComponent } from '../stock-counter/stock-counter.component';
+
 import { Product } from '../../models/product.interface';
 
 @Component({
   selector: 'stock-selector',
   standalone: true,
-  imports: [ReactiveFormsModule, NgForOf],
+  imports: [ReactiveFormsModule, NgForOf, StockCounterComponent],
   template: `
     <div class="stock-selector" [formGroup]="parent">
       <div formGroupName="selector">
@@ -24,6 +26,7 @@ import { Product } from '../../models/product.interface';
           max="1000"
           formControlName="quantity"
         />
+        <stock-counter [step]="10" [min]="10" [max]="1000"> </stock-counter>
         <button type="button" (click)="onAdd()">Add stock</button>
       </div>
     </div>
