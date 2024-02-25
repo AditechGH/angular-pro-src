@@ -7,21 +7,14 @@ import { RouterModule } from '@angular/router';
   imports: [RouterModule],
   template: `
     <div class="mail">
-      <router-outlet
-        (activate)="onActivate($event)"
-        (deactivate)="onDeactivate($event)"
-      ></router-outlet>
+      <router-outlet></router-outlet>
+    </div>
+    <div class="mail">
+      <router-outlet name="pane"></router-outlet>
     </div>
   `,
   styleUrl: './mail-app.component.scss',
 })
 export class MailAppComponent {
-  onActivate(event: any) {
-    console.log('Activate:', event);
-
-  }
-
-  onDeactivate(event: any) {
-    console.log('Deactivate:', event);
-  }
+ 
 }
