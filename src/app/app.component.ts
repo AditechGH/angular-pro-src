@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 import { MailAppComponent } from './mail/components/mail-app/mail-app.component';
 
@@ -16,6 +16,7 @@ import { MailAppComponent } from './mail/components/mail-app/mail-app.component'
         <nav>
           <a
             [routerLink]="[
+              '/mail',
               { outlets: { primary: 'folder/inbox', pane: null } }
             ]"
             routerLinkActive="active"
@@ -24,11 +25,15 @@ import { MailAppComponent } from './mail/components/mail-app/mail-app.component'
           </a>
           <a
             [routerLink]="[
+              '/mail',
               { outlets: { primary: 'folder/trash', pane: null } }
             ]"
             routerLinkActive="active"
           >
             Trash
+          </a>
+          <a [routerLink]="['/dashboard']" routerLinkActive="active">
+            Dashboard
           </a>
         </nav>
         <mail-app></mail-app>
@@ -37,7 +42,4 @@ import { MailAppComponent } from './mail/components/mail-app/mail-app.component'
   `,
   styleUrl: 'app.component.scss',
 })
-export class AppComponent implements OnInit {
-  constructor(private router: Router) {}
-  ngOnInit(): void {}
-}
+export class AppComponent {}
