@@ -1,16 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
-import { StockInventoryComponent } from './stock-inventory/containers/stock-inventory/stock-inventory.component';
+import { MailAppComponent } from './mail/components/mail-app/mail-app.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [StockInventoryComponent],
+  imports: [MailAppComponent],
   template: `
-    <div>
-      <stock-inventory></stock-inventory>
+    <div class="app">
+      <header>
+        <img src="assets/img/logo.svg" />
+      </header>
+      <div class="app__content">
+        <nav>
+          <a routerLink="folder/inbox" routerLinkActive="active"> Inbox </a>
+          <a routerLink="folder/trash" routerLinkActive="active"> Trash </a>
+        </nav>
+        <mail-app></mail-app>
+      </div>
     </div>
   `,
-  styles: [``],
+  styleUrl: 'app.component.scss',
 })
-export class AppComponent {}
+export class AppComponent implements OnInit {
+  constructor(private router: Router) {}
+  ngOnInit(): void {}
+}
