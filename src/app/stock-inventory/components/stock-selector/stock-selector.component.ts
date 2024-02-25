@@ -1,4 +1,4 @@
-import { NgForOf } from '@angular/common';
+import { NgForOf, NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 
@@ -9,7 +9,7 @@ import { Product } from '../../models/product.interface';
 @Component({
   selector: 'stock-selector',
   standalone: true,
-  imports: [ReactiveFormsModule, NgForOf, StockCounterComponent],
+  imports: [ReactiveFormsModule, NgForOf, NgIf, StockCounterComponent],
   template: `
     <div class="stock-selector" [formGroup]="parent">
       <div formGroupName="selector">
@@ -26,7 +26,16 @@ import { Product } from '../../models/product.interface';
           formControlName="quantity"
         >
         </stock-counter>
-        <button type="button" (click)="onAdd()">Add stock</button>
+        <button
+          type="button"
+          (click)="onAdd()"
+          [disabled]="stockExists || notSelected"
+        >
+          Add stock
+        </button>
+        <div class="stock-selector__error" *ngIf="stockExists">
+          Item already exists in the stock
+        </div>
       </div>
     </div>
   `,
@@ -37,6 +46,17 @@ export class StockSelectorComponent {
   @Input() products!: Product[];
 
   @Output() added = new EventEmitter<any>();
+
+  get notSelected() {
+    return !this.parent.get('selector.product_id')!.value;
+  }
+
+  get stockExists() {
+    return (
+      this.parent.hasError('stockExists') &&
+      this.parent.get('selector.product_id')!.dirty
+    );
+  }
 
   onAdd() {
     this.added.emit(this.parent.get('selector')?.value);
