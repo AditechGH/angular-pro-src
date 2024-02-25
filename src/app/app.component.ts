@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationEnd, Router, RouterModule } from '@angular/router';
-import { filter } from 'rxjs';
+import { Router, RouterModule } from '@angular/router';
 
 import { MailAppComponent } from './mail/components/mail-app/mail-app.component';
-
 
 @Component({
   selector: 'app-root',
@@ -27,11 +25,5 @@ import { MailAppComponent } from './mail/components/mail-app/mail-app.component'
 })
 export class AppComponent implements OnInit {
   constructor(private router: Router) {}
-  ngOnInit(): void {
-    this.router.events
-      .pipe(filter((event) => event instanceof NavigationEnd))
-      .subscribe((event) => {
-          console.log(event)
-      });
-  }
+  ngOnInit(): void {}
 }
