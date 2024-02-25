@@ -3,5 +3,6 @@ export interface Mail {
   from: string;
   id: number;
   summary: string;
+  full: string;
   timestamp: number;
 }
