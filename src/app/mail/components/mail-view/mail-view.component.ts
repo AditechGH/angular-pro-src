@@ -15,7 +15,7 @@ import { AsyncPipe } from '@angular/common';
       <p>{{ (message | async)?.full }}</p>
     </div>
     <div class="mail-reply">
-      <textarea 
+      <textarea
         (change)="updateReply($event)"
         placeholder="Type your reply..."
         [value]="reply"
@@ -28,6 +28,7 @@ import { AsyncPipe } from '@angular/common';
 })
 export class MailViewComponent implements OnInit {
   reply = '';
+  hasUnsavedChanges = false;
   message: Observable<Mail> = this.route.data.pipe(map((x) => x['message']));
 
   constructor(private route: ActivatedRoute) {}
@@ -35,14 +36,17 @@ export class MailViewComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(() => {
       this.reply = '';
+      this.hasUnsavedChanges = false;
     });
   }
 
   updateReply(event: Event) {
-    this.reply = (event.target as HTMLInputElement).value
+    this.reply = (event.target as HTMLInputElement).value;
+    this.hasUnsavedChanges = true;
   }
 
   sendReply() {
     console.log('Sent!', this.reply);
+    this.hasUnsavedChanges = false;
   }
 }
