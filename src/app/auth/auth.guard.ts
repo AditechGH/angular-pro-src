@@ -1,8 +1,12 @@
 import { inject } from '@angular/core';
+import { CanActivateFn, CanMatchFn } from '@angular/router';
 
-import { CanMatchFn, Route, UrlSegment } from '@angular/router';
 import { AuthService } from './auth.service';
 
-export const authGuard: CanMatchFn = (route: Route, segments: UrlSegment[]) => {
+export const canMatch: CanMatchFn = () => {
   return inject(AuthService).checkPermissions();
+};
+
+export const canActivate: CanActivateFn = () => {
+  return inject(AuthService).isLoggedIn();
 };
