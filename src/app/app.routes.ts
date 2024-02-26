@@ -4,20 +4,21 @@ import { Routes } from '@angular/router';
 
 import { MailService } from './mail/mail.service';
 import { AuthService } from './auth/auth.service';
-import { authGuard } from './auth/auth.guard';
+import { canActivate, canMatch } from './auth/auth.guard';
 
 export const routes: Routes = [
   {
     path: 'mail',
+    canActivate: [canActivate],
     loadChildren: () => import('./mail/mail.routes').then((x) => x.routes),
-    providers: [importProvidersFrom(HttpClientModule), MailService],
+    providers: [importProvidersFrom(HttpClientModule), MailService, AuthService],
   },
   {
     path: 'dashboard',
-    canMatch: [authGuard],
+    canMatch: [canMatch],
     loadChildren: () =>
       import('./dashboard/dashboard.routes').then((x) => x.routes),
-    providers: [AuthService]
+    providers: [AuthService],
   },
   {
     path: '**',
