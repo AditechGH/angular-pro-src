@@ -1,5 +1,5 @@
 import { inject } from '@angular/core';
-import { CanActivateFn, CanMatchFn } from '@angular/router';
+import { CanActivateChildFn, CanActivateFn, CanMatchFn } from '@angular/router';
 
 import { AuthService } from './auth.service';
 
@@ -9,4 +9,8 @@ export const canMatch: CanMatchFn = () => {
 
 export const canActivate: CanActivateFn = () => {
   return inject(AuthService).isLoggedIn();
+};
+
+export const canActivateChild: CanActivateChildFn = () => {
+  return false;
 };

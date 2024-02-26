@@ -36,7 +36,7 @@ import { MailAppComponent } from './mail/components/mail-app/mail-app.component'
             Dashboard
           </a>
         </nav>
-        <mail-app></mail-app>
+        <router-outlet></router-outlet>
       </div>
     </div>
   `,
