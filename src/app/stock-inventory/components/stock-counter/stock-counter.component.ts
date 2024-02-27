@@ -97,16 +97,16 @@ export class StockCounterComponent implements ControlValueAccessor {
   increment() {
     if (this.value < this.max) {
       this.value += this.step;
-      this.onModelChange(this.value);
+      // this.onModelChange(this.value);
     }
-    this.onTouch();
+    // this.onTouch();
   }
 
   decrement() {
     if (this.value > this.min) {
       this.value -= this.step;
-      this.onModelChange(this.value);
+      // this.onModelChange(this.value);
     }
-    this.onTouch();
+    // this.onTouch();
   }
 }
