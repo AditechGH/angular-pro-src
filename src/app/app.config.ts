@@ -8,6 +8,7 @@ import {
 
 import { routes } from './app.routes';
 import { Observable, of } from 'rxjs';
+import { API_TOKEN } from './token';
 
 export class CustomPreload implements PreloadingStrategy {
   preload(route: Route, fn: () => Observable<any>): Observable<any> {
@@ -19,6 +20,6 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes, withPreloading(CustomPreload)),
     CustomPreload,
-    { provide: 'api', useValue: 'api/pizzas' },
+    { provide: API_TOKEN, useValue: 'api/pizzas' },
   ],
 };
