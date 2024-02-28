@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-
 @Component({
   selector: 'stock-counter',
   standalone: true,
@@ -80,7 +79,7 @@ export class StockCounterComponent {
 
   decrement() {
     if (this.value > this.min) {
-      this.value = Math.min(this.value - this.step, this.min);
+      this.value = Math.max(this.value - this.step, this.min);
       this.changed.emit(this.value);
     }
   }
