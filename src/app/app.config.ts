@@ -19,5 +19,6 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes, withPreloading(CustomPreload)),
     CustomPreload,
+    { provide: 'api', useValue: 'api/pizzas' },
   ],
 };
