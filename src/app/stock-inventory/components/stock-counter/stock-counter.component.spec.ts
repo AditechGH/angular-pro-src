@@ -1,6 +1,7 @@
 import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+
 import { StockCounterComponent } from './stock-counter.component';
 
 describe('StockCounterComponent', () => {
@@ -19,18 +20,21 @@ describe('StockCounterComponent', () => {
     component.value = 10;
   });
 
-  // Component Template 
+  // Component Template
   it('should increment when the + button is clicked', () => {
     el.query(By.css('button:first-child')).triggerEventHandler('click', null);
     fixture.detectChanges();
     expect(component.value).toBe(20);
-    expect(el.query(By.css('p')).nativeElement.textContent).toContain(20)
-  }); 
+    expect(el.query(By.css('p')).nativeElement.textContent).toContain(20);
+  });
 
   it('should increment the value when the up arrow is pressed', () => {
     const event = new Event('KeyboardEvent') as any;
     event.code = 'ArrowUp';
-    el.query(By.css('.stock-counter > div > div')).triggerEventHandler('keydown', event);
+    el.query(By.css('.stock-counter > div > div')).triggerEventHandler(
+      'keydown',
+      event
+    );
     fixture.detectChanges();
     expect(component.value).toBe(20);
   });
