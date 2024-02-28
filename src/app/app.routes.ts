@@ -4,7 +4,7 @@ import { Routes } from '@angular/router';
 
 import { MailService } from './mail/mail.service';
 import { AuthService } from './auth/auth.service';
-import { canActivate, canActivateChild, canMatch } from './auth/auth.guard';
+import { canActivate, canMatch } from './auth/auth.guard';
 import { MailAppComponent } from './mail/components/mail-app/mail-app.component';
 
 export const routes: Routes = [
