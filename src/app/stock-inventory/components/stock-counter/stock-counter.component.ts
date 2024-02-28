@@ -71,16 +71,12 @@ export class StockCounterComponent {
   }
 
   increment() {
-    if (this.value < this.max) {
-      this.value = Math.min(this.value + this.step, this.max);
-      this.changed.emit(this.value);
-    }
+    this.value = Math.min(this.value + this.step, this.max);
+    this.changed.emit(this.value);
   }
 
   decrement() {
-    if (this.value > this.min) {
-      this.value = Math.max(this.value - this.step, this.min);
-      this.changed.emit(this.value);
-    }
+    this.value = Math.max(this.value - this.step, this.min);
+    this.changed.emit(this.value);
   }
 }
