@@ -32,7 +32,6 @@ import { StockItem } from '../../models/stock.interface';
     StockProductsComponent,
     StockSelectorComponent,
   ],
-  providers: [StockInventoryService],
   template: `
     <div class="stock-inventory">
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
