@@ -1,17 +1,10 @@
-import { Component, Input, forwardRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-const COUNTER_CONTROL_ACCESSOR = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => StockCounterComponent),
-  multi: true,
-};
 
 @Component({
   selector: 'stock-counter',
   standalone: true,
   imports: [],
-  providers: [COUNTER_CONTROL_ACCESSOR],
   template: `
     <div class="stock-counter" [class.focused]="focus">
       <div>
@@ -44,29 +37,16 @@ const COUNTER_CONTROL_ACCESSOR = {
   `,
   styleUrl: './stock-counter.component.scss',
 })
-export class StockCounterComponent implements ControlValueAccessor {
-  private onTouch!: Function;
-  private onModelChange!: Function;
-
-  registerOnChange(fn: any): void {
-    this.onModelChange = fn;
-  }
-
-  registerOnTouched(fn: any): void {
-    this.onTouch = fn;
-  }
-
-  writeValue(value: number): void {
-    this.value = value || 0;
-  }
-
+export class StockCounterComponent {
   @Input() step: number = 10;
   @Input() min: number = 10;
   @Input() max: number = 1000;
 
-  value: number = 10;
+  @Output() changed = new EventEmitter<number>();
 
+  value: number = 10;
   focus!: boolean;
+
   onKeyDown(event: KeyboardEvent) {
     const handlers: { [key: string]: Function } = {
       ArrowDown: () => this.decrement(),
@@ -77,36 +57,31 @@ export class StockCounterComponent implements ControlValueAccessor {
       event.preventDefault();
       event.stopPropagation();
     }
-    this.onTouch();
   }
 
   onBlur(event: FocusEvent) {
     this.focus = false;
     event.preventDefault();
     event.stopPropagation();
-    this.onTouch();
   }
 
   onFocus(event: FocusEvent) {
     this.focus = true;
     event.preventDefault();
     event.stopPropagation();
-    this.onTouch();
   }
 
   increment() {
     if (this.value < this.max) {
-      this.value += this.step;
-      // this.onModelChange(this.value);
+      this.value = Math.min(this.value + this.step, this.max);
+      this.changed.emit(this.value);
     }
-    // this.onTouch();
   }
 
   decrement() {
     if (this.value > this.min) {
-      this.value -= this.step;
-      // this.onModelChange(this.value);
+      this.value = Math.min(this.value - this.step, this.min);
+      this.changed.emit(this.value);
     }
-    // this.onTouch();
   }
 }
