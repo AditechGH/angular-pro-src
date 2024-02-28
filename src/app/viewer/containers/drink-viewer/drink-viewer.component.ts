@@ -13,7 +13,7 @@ interface Drink {
   selector: 'drink-viewer',
   standalone: true,
   imports: [NgForOf, AsyncPipe, CurrencyPipe],
-  providers: [FoodService],
+  providers: [{ provide: FoodService, useClass: FoodService }],
   template: `
     <div>
       <div *ngFor="let item of items$ | async">
