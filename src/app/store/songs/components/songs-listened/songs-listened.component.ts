@@ -1,20 +1,18 @@
 import { AsyncPipe, NgForOf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, filter, map } from 'rxjs';
 
 import { Store } from '../../../store';
-import { SongsService } from '../../services/songs.service';
+import { Song, SongsService } from '../../services/songs.service';
+import { SongsListComponent } from '../songs-list/songs-list.component';
 
 @Component({
   selector: 'songs-listened',
   standalone: true,
-  imports: [NgForOf, AsyncPipe],
+  imports: [AsyncPipe, SongsListComponent],
   template: `
     <div class="songs">
-      <div *ngFor="let item of listened$ | async">
-        {{ item.artist }}
-        {{ item.track }}
-      </div>
+      <songs-list [list]="listened$ | async"> Played</songs-list>
     </div>
   `,
 })
@@ -24,6 +22,9 @@ export class SongsListenedComponent implements OnInit {
   constructor(private store: Store, private songsService: SongsService) {}
 
   ngOnInit(): void {
-    this.listened$ = this.store.select('playlist');
+    this.listened$ = this.store.select('playlist').pipe(
+      filter(Boolean),
+      map((playlist: any) => playlist.filter((track: Song) => track.listened))
+    );
   }
 }

@@ -5,16 +5,15 @@ import { Observable, Subscription } from 'rxjs';
 import { Store } from '../../../store';
 import { SongsService } from '../../services/songs.service';
 
+import { SongsListComponent } from '../songs-list/songs-list.component';
+
 @Component({
   selector: 'songs-playlist',
   standalone: true,
-  imports: [AsyncPipe, NgForOf],
+  imports: [AsyncPipe, SongsListComponent],
   template: `
     <div class="songs">
-      <div *ngFor="let item of playlist$ | async">
-        {{ item.artist }}
-        {{ item.track }}
-      </div>
+    <songs-list [list]="playlist$ | async"> Playlist</songs-list>
     </div>
   `,
 })
