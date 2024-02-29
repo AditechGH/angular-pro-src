@@ -4,14 +4,15 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class FoodService {
-  constructor(
-    private http: HttpClient,
-    private api: String
-  ) {
-    console.log(this.api)
-  }
+  constructor(private http: HttpClient) {}
 
-  getFood(): Observable<any> {
-    return this.http.get(this.api as string);
+  getSides(): Observable<any> {
+    return this.http.get('/api/sides');
+  }
+  getPizzas(): Observable<any> {
+    return this.http.get('/api/pizzas');
+  }
+  getDrinks(): Observable<any> {
+    return this.http.get('/api/drinks');
   }
 }
