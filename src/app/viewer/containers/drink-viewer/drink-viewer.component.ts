@@ -5,27 +5,20 @@ import { Observable } from 'rxjs';
 
 import { FoodService } from '../../food.service';
 
-
 interface Drink {
   name: string;
   price: number;
 }
 
-export function DrinkFactory(http: HttpClient) {
-  return new FoodService(http, '/api/drinks');
+export abstract class DrinkService {
+  getDrinks!: () => Observable<Drink[]>;
 }
 
 @Component({
   selector: 'drink-viewer',
   standalone: true,
   imports: [NgForOf, AsyncPipe, CurrencyPipe],
-  providers: [
-    {
-      provide: FoodService,
-      useFactory: DrinkFactory,
-      deps: [HttpClient],
-    },
-  ],
+  providers: [FoodService, { provide: DrinkService, useExisting: FoodService }],
   template: `
     <div>
       <div *ngFor="let item of items$ | async">
@@ -37,8 +30,8 @@ export function DrinkFactory(http: HttpClient) {
 })
 export class DrinkViewerComponent implements OnInit {
   items$!: Observable<Drink[]>;
-  constructor(private foodService: FoodService) {}
+  constructor(private foodService: DrinkService) {}
   ngOnInit(): void {
-    this.items$ = this.foodService.getFood();
+    this.items$ = this.foodService.getDrinks();
   }
 }
