@@ -1,19 +1,31 @@
 import { AsyncPipe, CurrencyPipe, NgForOf } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { FoodService } from '../../food.service';
+
 
 interface Drink {
   name: string;
   price: number;
 }
 
+export function DrinkFactory(http: HttpClient) {
+  return new FoodService(http, '/api/drinks');
+}
+
 @Component({
   selector: 'drink-viewer',
   standalone: true,
   imports: [NgForOf, AsyncPipe, CurrencyPipe],
-  providers: [{ provide: FoodService, useClass: FoodService }],
+  providers: [
+    {
+      provide: FoodService,
+      useFactory: DrinkFactory,
+      deps: [HttpClient],
+    },
+  ],
   template: `
     <div>
       <div *ngFor="let item of items$ | async">
