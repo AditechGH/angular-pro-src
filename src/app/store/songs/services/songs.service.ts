@@ -4,7 +4,8 @@ import { Injectable } from '@angular/core';
 import { Store } from '../../store';
 import { tap } from 'rxjs';
 
-export interface Song {
+export interface Song{
+  [key: string]: any 
   id: number;
   artist: string;
   track: string;
@@ -19,4 +20,8 @@ export class SongsService {
     .pipe(tap((next) => this.store.set('playlist', next)));
 
   constructor(private http: HttpClient, private store: Store) {}
+
+  toggle(event: any) {
+    console.log(event);
+  }
 }

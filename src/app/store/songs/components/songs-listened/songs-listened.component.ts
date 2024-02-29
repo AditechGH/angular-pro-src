@@ -1,9 +1,10 @@
-import { AsyncPipe, NgForOf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Observable, filter, map } from 'rxjs';
 
 import { Store } from '../../../store';
 import { Song, SongsService } from '../../services/songs.service';
+
 import { SongsListComponent } from '../songs-list/songs-list.component';
 
 @Component({
@@ -12,7 +13,7 @@ import { SongsListComponent } from '../songs-list/songs-list.component';
   imports: [AsyncPipe, SongsListComponent],
   template: `
     <div class="songs">
-      <songs-list [list]="listened$ | async"> Played</songs-list>
+      <songs-list [list]="listened$ | async" (toggle)="onToggle($event)"> Played</songs-list>
     </div>
   `,
 })
@@ -26,5 +27,9 @@ export class SongsListenedComponent implements OnInit {
       filter(Boolean),
       map((playlist: any) => playlist.filter((track: Song) => track.listened))
     );
+  }
+
+  onToggle(event: any) {
+    this.songsService.toggle(event);
   }
 }

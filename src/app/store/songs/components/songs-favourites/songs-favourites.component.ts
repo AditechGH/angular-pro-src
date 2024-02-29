@@ -1,9 +1,10 @@
-import { AsyncPipe, NgForOf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Observable, filter, map } from 'rxjs';
 
 import { Store } from '../../../store';
 import { Song, SongsService } from '../../services/songs.service';
+
 import { SongsListComponent } from '../songs-list/songs-list.component';
 
 @Component({
@@ -11,7 +12,7 @@ import { SongsListComponent } from '../songs-list/songs-list.component';
   standalone: true,
   imports: [AsyncPipe, SongsListComponent],
   template: ` <div class="songs">
-    <songs-list [list]="favourites$ | async"> Favourites</songs-list>
+    <songs-list [list]="favourites$ | async" (toggle)="onToggle($event)"> Favourites</songs-list>
   </div>`,
 })
 export class SongsFavouritesComponent implements OnInit {
@@ -26,5 +27,9 @@ export class SongsFavouritesComponent implements OnInit {
         playlist.filter((track: Song) => track.favourite)
       )
     );
+  }
+
+  onToggle(event: any) {
+    this.songsService.toggle(event);
   }
 }
