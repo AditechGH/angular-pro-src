@@ -1,4 +1,4 @@
-import { AsyncPipe, NgForOf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 
@@ -13,7 +13,7 @@ import { SongsListComponent } from '../songs-list/songs-list.component';
   imports: [AsyncPipe, SongsListComponent],
   template: `
     <div class="songs">
-    <songs-list [list]="playlist$ | async"> Playlist</songs-list>
+    <songs-list [list]="playlist$ | async" (toggle)="onToggle($event)"> Playlist</songs-list>
     </div>
   `,
 })
@@ -28,5 +28,11 @@ export class SongsPlaylistComponent implements OnInit, OnDestroy {
     this.subscription = this.songsService.getPlaylist$.subscribe();
   }
 
-  ngOnDestroy(): void {}
+  onToggle(event: any) {
+    this.songsService.toggle(event);
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 }
