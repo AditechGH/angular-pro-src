@@ -8,20 +8,21 @@ import { Store } from './store';
   standalone: true,
   imports: [NgForOf, AsyncPipe],
   template: `
-    <div>
+    <div class="store">
       <div *ngFor="let todo of todos$ | async">
         {{ todo.name }}
       </div>
     </div>
   `,
-  styles: [``] 
+  styles: [``],
 })
 export class StoreComponent {
-  todos$ = this.store.select<any[]>('todos');
+  todos$ = this.store.select<any>('todos');
 
-  constructor(
-    private store: Store
-  ) {
-    this.store.set('todos', [{ id: 1, name: 'Eat dinner' }, { id: 2, name: 'Do washing' }]);
+  constructor(private store: Store) {
+    this.store.set('todos', [
+      { id: 1, name: 'Eat dinner' },
+      { id: 2, name: 'Do washing' },
+    ]);
   }
 }
