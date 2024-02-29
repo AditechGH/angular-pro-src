@@ -1,9 +1,10 @@
 import { AsyncPipe, NgForOf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, filter, map } from 'rxjs';
 
 import { Store } from '../../../store';
 import { SongsService } from '../../services/songs.service';
+import { Playlist } from '../../model/playlist.interface';
 
 @Component({
   selector: 'songs-listened',
@@ -24,6 +25,11 @@ export class SongsListenedComponent implements OnInit {
   constructor(private store: Store, private songsService: SongsService) {}
 
   ngOnInit(): void {
-    this.listened$ = this.store.select('playlist');
+    this.listened$ = this.store.select('playlist').pipe(
+      filter(Boolean),
+      map((playlist: any) =>
+        playlist.filter((track: Playlist) => track.listened)
+      )
+    );
   }
 }
