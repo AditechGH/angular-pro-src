@@ -14,7 +14,6 @@ export const routes: Routes = [
     component: MailAppComponent,
     loadChildren: () => import('./mail/mail.routes').then((x) => x.routes),
     providers: [
-      importProvidersFrom(HttpClientModule),
       MailService,
       AuthService,
     ],

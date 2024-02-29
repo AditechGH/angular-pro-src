@@ -1,4 +1,5 @@
-import { ApplicationConfig } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import {
   PreloadingStrategy,
   Route,
@@ -6,9 +7,11 @@ import {
   withPreloading,
 } from '@angular/router';
 
-import { routes } from './app.routes';
 import { Observable, of } from 'rxjs';
-import { API_TOKEN } from './token';
+import { routes } from './app.routes';
+import { FOOD_STORE_CONFIG } from './foodstore/config';
+import { FoodStoreService } from './foodstore/foos-store.service';
+
 
 export class CustomPreload implements PreloadingStrategy {
   preload(route: Route, fn: () => Observable<any>): Observable<any> {
@@ -18,8 +21,16 @@ export class CustomPreload implements PreloadingStrategy {
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    importProvidersFrom(HttpClientModule),
     provideRouter(routes, withPreloading(CustomPreload)),
     CustomPreload,
-    { provide: API_TOKEN, useValue: 'api/pizzas' },
+    FoodStoreService,
+    {
+      provide: FOOD_STORE_CONFIG,
+      useValue: {
+        storeId: 10292,
+        storeToken: 'eca938c99a0e9ff91029dc',
+      },
+    },
   ],
 };
