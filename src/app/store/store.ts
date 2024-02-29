@@ -1,10 +1,4 @@
-import {
-  BehaviorSubject,
-  Observable,
-  distinctUntilChanged,
-  map,
-  pluck,
-} from 'rxjs';
+import { BehaviorSubject, Observable, distinctUntilChanged, map } from 'rxjs';
 
 import { State } from './state';
 
