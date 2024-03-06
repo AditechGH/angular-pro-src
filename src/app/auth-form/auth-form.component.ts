@@ -5,20 +5,20 @@ import {
   ContentChildren,
   EventEmitter,
   Output,
-  QueryList
+  QueryList,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { AuthRememberComponent } from '../auth-remember/auth-remember.component';
+import { AuthRememberComponent } from './auth-remember.component';
 
-import { User } from '../../model/user.model';
+import { User } from './auth-form.interface';
 
 @Component({
   selector: 'auth-form',
   standalone: true,
   imports: [FormsModule, NgIf],
   template: `
-    <div class="auth-form">
+    <div>
       <form (ngSubmit)="onSubmit(form.value)" #form="ngForm">
         <ng-content select="h3"></ng-content>
         <label>
@@ -35,33 +35,6 @@ import { User } from '../../model/user.model';
       </form>
     </div>
   `,
-  styles: [
-    `
-      .auth-form {
-        &:first-child {
-          form {
-            border-right: 1px solid rgba(0, 0, 0, 0.1);
-          }
-        }
-        form {
-          flex: 1 0;
-          padding: 0 40px;
-          input {
-            display: block;
-            border: none;
-            background: #ffffff;
-            font-size: 13px;
-            padding: 6px 30px 6px 10px;
-            border-radius: 1px;
-            border: 1px solid #ccc;
-          }
-          .email {
-            border-color: #9f72e6;
-          }
-        }
-      }
-    `,
-  ],
 })
 export class AuthFormComponent implements AfterContentInit {
   showMessage: boolean = false;
