@@ -14,7 +14,7 @@ import { User } from './auth-form/auth-form.interface';
   standalone: true,
   imports: [],
   template: `
-    <div class="auth-page">
+    <div>
       <div #entry></div>
     </div>
   `,
