@@ -15,7 +15,7 @@ import { User } from './auth-form/auth-form.interface';
   standalone: true,
   imports: [],
   template: `
-    <div class="auth-page">
+    <div>
       <button (click)="destroyComponent()">Destroy</button>
       <div #entry></div>
     </div>
