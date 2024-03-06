@@ -1,13 +1,19 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 
-import { ExamplePageComponent } from './example/containers/example-page/example-page.component';
+import { OneComponent } from './one/one.component';
+import { ThreeComponent } from './three/three.component';
+import { TwoComponent } from './two/two.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ExamplePageComponent],
-  template: ` <example-page></example-page> `,
-  styles: [``],
+  imports: [OneComponent, TwoComponent, ThreeComponent],
+  template: `
+    <div>
+      <example-one></example-one>
+      <example-two></example-two>
+      <example-three></example-three>
+    </div>
+  `,
 })
 export class AppComponent {}
