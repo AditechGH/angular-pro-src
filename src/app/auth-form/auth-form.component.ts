@@ -2,16 +2,14 @@ import { NgIf } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { AuthMessageComponent } from '../auth-message/auth-message.component';
-
-import { User } from '../../model/user.model';
+import { User } from './auth-form.interface';
 
 @Component({
   selector: 'auth-form',
   standalone: true,
-  imports: [FormsModule, AuthMessageComponent, NgIf],
+  imports: [FormsModule, NgIf],
   template: `
-    <div class="auth-form">
+    <div>
       <form (ngSubmit)="onSubmit(form.value)" #form="ngForm">
         <h3>{{ title }}</h3>
         <label>
@@ -30,29 +28,8 @@ import { User } from '../../model/user.model';
   `,
   styles: [
     `
-      .auth-form {
-        display: flex;
-        &:first-child {
-          form {
-            border-right: 1px solid rgba(0, 0, 0, 0.1);
-          }
-        }
-        form {
-          flex: 1 0;
-          padding: 0 40px;
-          input {
-            display: block;
-            border: none;
-            background: #ffffff;
-            font-size: 13px;
-            padding: 6px 30px 6px 10px;
-            border-radius: 1px;
-            border: 1px solid #ccc;
-          }
-          .email {
-            border-color: #9f72e6;
-          }
-        }
+      .email {
+        border-color: #9f72e6;
       }
     `,
   ],
