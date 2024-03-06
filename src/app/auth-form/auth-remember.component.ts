@@ -6,17 +6,16 @@ import { Component, EventEmitter, Output } from '@angular/core';
   imports: [],
   template: `
     <label>
-      <input type="checkbox" [checked]="isChecked" (change)="onChecked()" />
+      <input type="checkbox" (change)="onChecked($event)" />
       Keep me logged in
     </label>
   `,
-  styles: ``,
 })
 export class AuthRememberComponent {
-  @Output('checked') checked = new EventEmitter<boolean>();
-  isChecked: boolean = false;
+  @Output() checked: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  onChecked() {
-    this.checked.emit(this.isChecked = !this.isChecked);
+  onChecked(event: Event) {
+    const value = (event.target as HTMLInputElement).checked;
+    this.checked.emit(value);
   }
 }
