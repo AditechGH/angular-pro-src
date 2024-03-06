@@ -11,7 +11,7 @@ import {
   standalone: true,
   imports: [],
   template: `
-    <div class="auth-page">
+    <div>
       <div #entry></div>
       <ng-template #tmpl> Adnan Alhassan : Ghana, West Africa </ng-template>
     </div>
