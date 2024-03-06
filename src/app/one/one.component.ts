@@ -1,36 +1,36 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { User } from '../../model/user.model';
+import { User } from '../interface/user.interface';
 
 @Component({
-  selector: 'example-two',
-  changeDetection: ChangeDetectionStrategy.Default,
+  selector: 'example-one',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [],
   template: `
-    <div class="example-two">
+    <div class="example-one">
       <h4>{{ user.name }}</h4>
       <h5>{{ user.age }} years old</h5>
       {{ user.location }} <br />
       {{ user.email }}
 
       <button (click)="update()">Internal update</button>
-      <p>* should update</p>
+      <p>* should not update</p>
     </div>
   `,
   styles: [
     `
-      .example-two {
+      .example-one {
         font-size: 19px;
         margin-bottom: 10px;
       }
     `,
   ],
 })
-export class TwoComponent {
+export class OneComponent {
   @Input() user!: User;
 
   update() {
-    this.user.name = 'Scott Raynor';
+    this.user.name = 'Matt Skiba';
   }
 }
