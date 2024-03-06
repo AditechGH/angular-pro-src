@@ -11,26 +11,26 @@ import {
   QueryList,
   Renderer2,
   ViewChild,
-  ViewChildren
+  ViewChildren,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { AuthMessageComponent } from '../auth-message/auth-message.component';
-import { AuthRememberComponent } from '../auth-remember/auth-remember.component';
+import { AuthMessageComponent } from './auth-message.component';
+import { AuthRememberComponent } from './auth-remember.component';
 
-import { User } from '../../model/user.model';
+import { User } from './auth-form.interface';
 
 @Component({
   selector: 'auth-form',
   standalone: true,
-  imports: [FormsModule, AuthMessageComponent, NgIf],
+  imports: [FormsModule, NgIf, AuthMessageComponent],
   template: `
-    <div class="auth-form">
+    <div>
       <form (ngSubmit)="onSubmit(form.value)" #form="ngForm">
         <ng-content select="h3"></ng-content>
         <label>
           Email address
-          <input type="email" name="email" ngModel #email/>
+          <input type="email" name="email" ngModel #email />
         </label>
         <label>
           Password
@@ -48,34 +48,14 @@ import { User } from '../../model/user.model';
   `,
   styles: [
     `
-      .auth-form {
-        &:first-child {
-          form {
-            border-right: 1px solid rgba(0, 0, 0, 0.1);
-          }
-        }
-        form {
-          flex: 1 0;
-          padding: 0 40px;
-          input {
-            display: block;
-            border: none;
-            background: #ffffff;
-            font-size: 13px;
-            padding: 6px 30px 6px 10px;
-            border-radius: 1px;
-            border: 1px solid #ccc;
-          }
-          .email {
-            border-color: #9f72e6;
-          }
-        }
+      .email {
+        border-color: #9f72e6;
       }
     `,
   ],
 })
 export class AuthFormComponent implements AfterContentInit, AfterViewInit {
-  showMessage: boolean = false;
+  showMessage!: boolean;
 
   @ViewChild('email') email!: ElementRef;
 
@@ -85,13 +65,14 @@ export class AuthFormComponent implements AfterContentInit, AfterViewInit {
 
   @Output() submitted: EventEmitter<User> = new EventEmitter<User>();
 
-  constructor(
-    private renderer: Renderer2,
-    private cd: ChangeDetectorRef
-    ) {}
+  constructor(private renderer: Renderer2, private cd: ChangeDetectorRef) {}
 
   ngAfterViewInit(): void {
-    this.renderer.setAttribute(this.email.nativeElement, 'placeholder', 'Enter your email address');
+    this.renderer.setAttribute(
+      this.email.nativeElement,
+      'placeholder',
+      'Enter your email address'
+    );
     this.renderer.addClass(this.email.nativeElement, 'email');
     this.renderer.selectRootElement(this.email.nativeElement).focus();
     // this.email.nativeElement.setAttribute('placeholder', 'Enter your email address');
