@@ -1,12 +1,35 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {
+  AfterContentInit,
+  Component,
+  TemplateRef,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
 
-import { AuthPageComponent } from './auth/containers/auth-page/auth-page.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, AuthPageComponent],
-  template: `<auth-page></auth-page>`,
-  styles: [``],
+  imports: [],
+  template: `
+    <div>
+      <div #entry></div>
+      <ng-template #tmpl let-name let-location="location">
+        {{ name }} : {{ location }}
+      </ng-template>
+    </div>
+  `,
 })
-export class AppComponent {}
+export class AppComponent implements AfterContentInit {
+  @ViewChild('entry', { read: ViewContainerRef, static: true })
+  entry!: ViewContainerRef;
+
+  @ViewChild('tmpl', { read: TemplateRef, static: true })
+  tmpl!: TemplateRef<any>;
+
+  ngAfterContentInit(): void {
+    this.entry.createEmbeddedView(this.tmpl, {
+      $implicit: 'Adnan Alhassan',
+      location: 'West Africa, Ghana',
+    });
+  }
+}
