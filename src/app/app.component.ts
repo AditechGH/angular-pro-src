@@ -1,12 +1,25 @@
+import { NgTemplateOutlet } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 
-import { AuthPageComponent } from './auth/containers/auth-page/auth-page.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, AuthPageComponent],
-  template: `<auth-page></auth-page>`,
-  styles: [``],
+  imports: [NgTemplateOutlet],
+  template: `
+    <div>
+      <ng-container
+        [ngTemplateOutlet]="tmpl"
+        [ngTemplateOutletContext]="ctx"
+      ></ng-container>
+      <ng-template let-name let-location="location" #tmpl>
+        {{ name }} : {{ location }}
+      </ng-template>
+    </div>
+  `,
 })
-export class AppComponent {}
+export class AppComponent {
+  ctx = {
+    $implicit: 'Adnan Alhassan',
+    location: 'Ghana, West Africa',
+  };
+}
