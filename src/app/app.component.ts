@@ -1,23 +1,30 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 
-import { AuthPageComponent } from './auth/containers/auth-page/auth-page.component';
+import { AuthFormComponent } from './auth-form/auth-form.component';
+
+import { User } from './auth-form/auth-form.model';
+
 @Component({
   selector: 'app-root',
+  imports: [AuthFormComponent],
   standalone: true,
-  template: `<auth-page></auth-page>`,
-  styles: [
-    `
-      auth-page {
-        display: inline-block;
-        background-color: #ffffff;
-        border-radius: 2px;
-        border: 1px solid #dce5f2;
-        box-shadow: 0 1px 4px rgba(53, 60, 72, 0.1);
-        padding: 30px 0;
-      }
-    `,
-  ],
-  imports: [RouterOutlet, AuthPageComponent],
+  template: `
+    <div>
+      <auth-form (submitted)="createUser($event)">
+        <h3>Create account</h3>
+      </auth-form>
+      <auth-form (submitted)="loginUser($event)">
+        <h3>Login</h3>
+      </auth-form>
+    </div>
+  `,
 })
-export class AppComponent {}
+export class AppComponent {
+  createUser(user: User) {
+    console.log('Create account', user);
+  }
+
+  loginUser(user: User) {
+    console.log('Login', user);
+  }
+}
