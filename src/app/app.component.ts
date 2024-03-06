@@ -9,7 +9,7 @@ import { User } from './auth-form/auth-form.interface';
   standalone: true,
   imports: [AuthFormComponent, AuthRememberComponent],
   template: `
-    <div class="auth-page">
+    <div>
       <auth-form (submitted)="loginUser($event)">
         <h3>Login</h3>
         <auth-remember
