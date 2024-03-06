@@ -1,12 +1,15 @@
+import { NgTemplateOutlet } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 
-import { AuthPageComponent } from './auth/containers/auth-page/auth-page.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, AuthPageComponent],
-  template: `<auth-page></auth-page>`,
-  styles: [``],
+  imports: [NgTemplateOutlet],
+  template: `
+    <div>
+      <ng-container [ngTemplateOutlet]="tmpl"></ng-container>
+      <ng-template #tmpl> Adnan Alhassan : Ghana, West Africa </ng-template>
+    </div>
+  `,
 })
 export class AppComponent {}
