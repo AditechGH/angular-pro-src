@@ -24,7 +24,8 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
   styleUrl: './stock-branch.component.scss',
 })
 export class StockBranchComponent {
-  @Input() parent!: FormGroup;
+  @Input() 
+  parent!: FormGroup;
 
   get invalid() {
     return (
