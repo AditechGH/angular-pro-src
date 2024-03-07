@@ -1,23 +1,15 @@
-import { ApplicationConfig } from '@angular/core';
-import {
-  PreloadingStrategy,
-  Route,
-  provideRouter,
-  withPreloading,
-} from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import { Observable, of } from 'rxjs';
 
-export class CustomPreload implements PreloadingStrategy {
-  preload(route: Route, fn: () => Observable<any>): Observable<any> {
-    return route.data && route.data['preload'] ? fn() : of(null);
-  }
-}
+import { MailService } from './mail/mail.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes, withPreloading(CustomPreload)),
-    CustomPreload,
+    provideRouter(routes),
+    importProvidersFrom(HttpClientModule),
+    MailService,
   ],
 };

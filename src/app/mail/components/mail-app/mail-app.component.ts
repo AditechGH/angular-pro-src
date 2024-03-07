@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'mail-app',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterOutlet],
   template: `
     <div class="mail">
       <router-outlet></router-outlet>
@@ -15,6 +15,4 @@ import { RouterModule } from '@angular/router';
   `,
   styleUrl: './mail-app.component.scss',
 })
-export class MailAppComponent {
- 
-}
+export class MailAppComponent {}
