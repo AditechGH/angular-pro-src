@@ -1,6 +1,6 @@
 import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 
-import { User } from '../model/user.model';
+import { User } from '../interface/user.interface';
 
 @Directive({
   selector: '[myFor][myForOf]',
