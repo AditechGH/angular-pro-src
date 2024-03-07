@@ -6,22 +6,20 @@ import { MailViewComponent } from './components/mail-view/mail-view.component';
 import { mailFolderResolver } from './containers/mail-folder/mail-folder.resolve';
 import { mailViewResolver } from './components/mail-view/mail-view.resolve';
 
-// routes
-export const routes: Routes = [
+export const mailRoutes: Routes = [
   {
     path: 'folder/:name',
     component: MailFolderComponent,
     resolve: {
-      messages: mailFolderResolver
-    }
+      messages: mailFolderResolver,
+    },
   },
   {
     path: 'message/:id',
     component: MailViewComponent,
     outlet: 'pane',
     resolve: {
-      message: mailViewResolver
-    }
+      message: mailViewResolver,
+    },
   },
-  { path: '', pathMatch: 'full', redirectTo: 'folder/inbox' },
 ];

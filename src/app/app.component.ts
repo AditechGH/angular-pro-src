@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 import { MailAppComponent } from './mail/components/mail-app/mail-app.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterModule, MailAppComponent],
+  imports: [RouterLink, RouterLinkActive, MailAppComponent],
   template: `
     <div class="app">
       <header>

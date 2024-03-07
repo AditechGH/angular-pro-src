@@ -1,12 +1,12 @@
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
 import { Observable, map } from 'rxjs';
+
 import { Mail } from '../../models/mail.interface';
-import { AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-mail-view',
+  selector: 'mail-view',
   standalone: true,
   imports: [AsyncPipe],
   template: `
