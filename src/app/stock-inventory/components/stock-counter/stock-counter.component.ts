@@ -55,9 +55,14 @@ export class StockCounterComponent implements ControlValueAccessor {
     this.value = value || 0;
   }
 
-  @Input() step: number = 10;
-  @Input() min: number = 10;
-  @Input() max: number = 1000;
+  @Input() 
+  step: number = 10;
+
+  @Input() 
+  min: number = 10;
+
+  @Input() 
+  max: number = 1000;
 
   value: number = 10;
 
