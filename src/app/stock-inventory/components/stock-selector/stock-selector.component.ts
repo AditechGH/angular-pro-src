@@ -33,10 +33,14 @@ import { Product } from '../../models/product.interface';
   styleUrl: './stock-selector.component.scss',
 })
 export class StockSelectorComponent {
-  @Input() parent!: FormGroup;
-  @Input() products!: Product[];
+  @Input()
+  parent!: FormGroup;
 
-  @Output() added = new EventEmitter<any>();
+  @Input()
+  products!: Product[];
+
+  @Output()
+  added = new EventEmitter<any>();
 
   onAdd() {
     this.added.emit(this.parent.get('selector')?.value);
