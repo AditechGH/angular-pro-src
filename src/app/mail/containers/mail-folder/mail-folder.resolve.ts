@@ -1,8 +1,8 @@
 import { inject } from '@angular/core';
 import {
-    ActivatedRouteSnapshot,
-    ResolveFn,
-    RouterStateSnapshot
+  ActivatedRouteSnapshot,
+  ResolveFn,
+  RouterStateSnapshot,
 } from '@angular/router';
 
 import { MailService } from '../../mail.service';
@@ -12,5 +12,5 @@ export const mailFolderResolver: ResolveFn<Mail[]> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot
 ) => {
-  return inject(MailService).getFolder(route.paramMap.get('name')!);
+  return inject(MailService).getFolder(route.params['name']);
 };

@@ -1,17 +1,19 @@
+import { HttpClientModule } from '@angular/common/http';
+import { importProvidersFrom } from '@angular/core';
 import { Routes } from '@angular/router';
 
 import { MailFolderComponent } from './containers/mail-folder/mail-folder.component';
 
 import { mailFolderResolver } from './containers/mail-folder/mail-folder.resolve';
+import { MailService } from './mail.service';
 
-// routes
-export const routes: Routes = [
+export const mailRoutes: Routes = [
   {
-    path: ':name',
+    path: 'folder/:name',
     component: MailFolderComponent,
     resolve: {
-      messages: mailFolderResolver
-    }
+      messages: mailFolderResolver,
+    },
+    providers: [importProvidersFrom(HttpClientModule), MailService],
   },
-  { path: '', pathMatch: 'full', redirectTo: 'inbox' },
 ];

@@ -20,5 +20,6 @@ import { Mail } from '../../models/mail.interface';
   styleUrl: './mail-item.component.scss',
 })
 export class MailItemComponent {
-  @Input() message!: Mail;
+  @Input() 
+  message!: Mail;
 }
