@@ -7,7 +7,7 @@ import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 })
 export class TooltipDirective implements OnInit {
   tooltipElement = document.createElement('div');
-  // visible = false;
+  visible = false;
 
   @Input()
   set tooltip(value: string) {

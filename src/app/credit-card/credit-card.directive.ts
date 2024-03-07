@@ -5,9 +5,11 @@ import { Directive, HostBinding, HostListener } from '@angular/core';
   standalone: true,
 })
 export class CreditCardDirective {
-  @HostBinding('style.border') border!: string;
+  @HostBinding('style.border') 
+  border!: string;
 
-  @HostListener('input', ['$event']) onKeyDown(event: KeyboardEvent) {
+  @HostListener('input', ['$event']) 
+  onKeyDown(event: KeyboardEvent) {
     const input = event.target as HTMLInputElement;
 
     let trimmed = input.value.replace(/\s+/g, '');
