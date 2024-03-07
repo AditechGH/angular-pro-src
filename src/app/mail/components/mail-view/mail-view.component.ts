@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-mail-view',
+  selector: 'mail-view',
   standalone: true,
   imports: [],
   template: ` <div class="mail-view">I am a message!</div> `,

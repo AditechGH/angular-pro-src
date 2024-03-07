@@ -10,7 +10,7 @@ import { Mail } from '../../models/mail.interface';
 @Component({
   selector: 'mail-folder',
   standalone: true,
-  imports: [NgForOf, MailItemComponent, AsyncPipe],
+  imports: [NgForOf, AsyncPipe, MailItemComponent],
   template: `
     <h2>{{ title | async }}</h2>
     <mail-item *ngFor="let message of messages | async" [message]="message">

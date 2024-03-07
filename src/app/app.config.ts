@@ -1,8 +1,15 @@
-import { ApplicationConfig } from '@angular/core';
-import { provideRouter, withDebugTracing } from '@angular/router';
+import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import { provideRouter } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 import { routes } from './app.routes';
 
+import { MailService } from './mail/mail.service';
+
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes /* withDebugTracing() */)],
+  providers: [
+    provideRouter(routes),
+    importProvidersFrom(HttpClientModule),
+    MailService,
+  ],
 };
