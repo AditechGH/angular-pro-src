@@ -21,7 +21,7 @@ import { Product } from '../../models/product.interface';
           type="number"
           step="10"
           min="10"
-          max="1_000"
+          max="1000"
           formControlName="quantity"
         />
         <button type="button">Add stock</button>
@@ -31,6 +31,9 @@ import { Product } from '../../models/product.interface';
   styleUrl: './stock-selector.component.scss',
 })
 export class StockSelectorComponent {
-  @Input() parent!: FormGroup;
-  @Input() products!: Product[];
+  @Input()
+  parent!: FormGroup;
+
+  @Input()
+  products!: Product[];
 }

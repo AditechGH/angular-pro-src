@@ -11,6 +11,5 @@ import { StockInventoryComponent } from './stock-inventory/containers/stock-inve
       <stock-inventory></stock-inventory>
     </div>
   `,
-  styles: [``],
 })
 export class AppComponent {}

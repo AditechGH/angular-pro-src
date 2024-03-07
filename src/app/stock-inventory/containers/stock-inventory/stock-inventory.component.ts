@@ -12,6 +12,7 @@ import { StockProductsComponent } from '../../components/stock-products/stock-pr
 import { StockSelectorComponent } from '../../components/stock-selector/stock-selector.component';
 
 import { Product } from '../../models/product.interface';
+import { StockItem } from '../../models/stock-item.interface';
 
 @Component({
   selector: 'stock-inventory',
@@ -63,9 +64,9 @@ export class StockInventoryComponent {
     ]),
   });
 
-  createStock(stock: { product_id?: any; quantity?: number }) {
+  createStock(stock: StockItem) {
     return new FormGroup({
-      product_id: new FormControl(parseInt(stock.product_id, 10) || ''),
+      product_id: new FormControl(stock.product_id || ''),
       quantity: new FormControl(stock.quantity || 10),
     });
   }
