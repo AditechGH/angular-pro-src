@@ -12,5 +12,5 @@ export const canActivate: CanActivateFn = () => {
 };
 
 export const canActivateChild: CanActivateChildFn = () => {
-  return false;
+  return inject(AuthService).isLoggedIn();
 };
