@@ -15,7 +15,7 @@ import { StockSelectorComponent } from '../../components/stock-selector/stock-se
 import { StockInventoryService } from '../../services/stock-inventory.service';
 
 import { Product } from '../../models/product.interface';
-import { Stock } from '../../models/stock.interface';
+import { StockItem } from '../../models/stock-item.interface';
 
 @Component({
   selector: 'stock-inventory',
@@ -79,29 +79,28 @@ export class StockInventoryComponent implements OnInit {
     const products = this.stockService.getProducts();
 
     forkJoin([cart, products]).subscribe(
-      ([cart, products]: [Stock[], Product[]]) => {
+      ([cart, products]: [StockItem[], Product[]]) => {
+
         const myMap = products.map<[number, Product]>((product) => [
           product.id,
           product,
         ]);
 
         this.productMap = new Map<number, Product>(myMap);
-        console.log(this.productMap, this.productMap.get(1));
         this.products = products;
-
         cart.forEach((item) => this.addStock(item));
       }
     );
   }
 
-  createStock(stock: Stock) {
+  createStock(stock: StockItem) {
     return this.fb.group({
-      product_id: stock.product_id || 0,
+      product_id: stock.product_id || '',
       quantity: stock.quantity || 10,
     });
   }
 
-  addStock(stock: Stock) {
+  addStock(stock: StockItem) {
     const control = this.form.get('stock') as FormArray;
     control.push(this.createStock(stock));
   }

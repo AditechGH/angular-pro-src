@@ -1,4 +1,4 @@
-export interface Stock {
+export interface StockItem {
   product_id?: number;
   quantity?: number;
 }

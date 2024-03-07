@@ -24,7 +24,7 @@ import { Product } from '../../models/product.interface';
             <div class="stock-product__price">
               {{
                 getProduct(item.value.product_id)?.price
-                  | currency : 'USD' : true
+                  | currency : 'USD' : 'symbol'
               }}
             </div>
             <input
@@ -43,10 +43,14 @@ import { Product } from '../../models/product.interface';
   styleUrl: './stock-products.component.scss',
 })
 export class StockProductsComponent {
-  @Input() parent!: FormGroup;
-  @Input() map!: Map<number, Product>;
+  @Input()
+  parent!: FormGroup;
 
-  @Output() removed = new EventEmitter<any>();
+  @Input()
+  map!: Map<number, Product>;
+
+  @Output()
+  removed = new EventEmitter<any>();
 
   getProduct(id: number) {
     return this.map.get(id);
