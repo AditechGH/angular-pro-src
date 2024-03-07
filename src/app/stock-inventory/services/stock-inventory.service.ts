@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, tap, throwError } from 'rxjs';
+import { catchError, throwError } from 'rxjs';
 
-import { StockItem } from '../models/stock.interface';
 import { Product } from '../models/product.interface';
+import { StockItem } from '../models/stock-item.interface';
 
 @Injectable()
 export class StockInventoryService {

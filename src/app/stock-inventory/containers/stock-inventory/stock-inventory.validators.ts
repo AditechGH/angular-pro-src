@@ -1,5 +1,5 @@
 import { AbstractControl } from '@angular/forms';
-import { StockItem } from '../../models/stock.interface';
+import { StockItem } from '../../models/stock-item.interface';
 
 export class StockValidators {
   static checkBranch(control: AbstractControl) {

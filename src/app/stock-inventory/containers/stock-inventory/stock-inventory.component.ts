@@ -18,7 +18,7 @@ import { StockValidators } from './stock-inventory.validators';
 import { StockInventoryService } from '../../services/stock-inventory.service';
 
 import { Product } from '../../models/product.interface';
-import { StockItem } from '../../models/stock.interface';
+import { StockItem } from '../../models/stock-item.interface';
 
 @Component({
   selector: 'stock-inventory',
