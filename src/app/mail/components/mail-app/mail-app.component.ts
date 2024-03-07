@@ -7,7 +7,6 @@ import { RouterOutlet } from '@angular/router';
   imports: [RouterOutlet],
   template: `
     <div class="mail">
-      <h1>Activated Parent!</h1>
       <router-outlet></router-outlet>
     </div>
     <div class="mail">
