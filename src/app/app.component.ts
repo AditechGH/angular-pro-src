@@ -1,14 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationEnd, Router, RouterModule } from '@angular/router';
+import {
+  NavigationEnd,
+  Router,
+  RouterLink,
+  RouterLinkActive,
+  RouterModule,
+} from '@angular/router';
 import { filter } from 'rxjs';
 
 import { MailAppComponent } from './mail/components/mail-app/mail-app.component';
 
-
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterModule, MailAppComponent],
+  imports: [RouterLink, RouterLinkActive, MailAppComponent],
   template: `
     <div class="app">
       <header>
@@ -31,7 +36,7 @@ export class AppComponent implements OnInit {
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event) => {
-          console.log(event)
+        console.log(event);
       });
   }
 }
