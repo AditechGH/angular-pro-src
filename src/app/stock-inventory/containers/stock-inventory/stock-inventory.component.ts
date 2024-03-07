@@ -9,20 +9,28 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
   template: `
     <div class="stock-inventory">
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
         <div formGroupName="store">
-          <input type="text" placeholder="Branch ID" formControlName="branch" />
-          <input
-            type="text"
+          <input 
+            type="text" 
+            placeholder="Branch ID"
+            formControlName="branch">
+          <input 
+            type="text" 
             placeholder="Manager Code"
-            formControlName="code"
-          />
+            formControlName="code">
         </div>
 
         <div class="stock-inventory__buttons">
-          <button type="submit" [disabled]="form.invalid">Order stock</button>
+          <button 
+            type="submit"
+            [disabled]="form.invalid">
+            Order stock
+          </button>
         </div>
 
-        <pre> {{form.value | json }}</pre>
+        <pre>{{ form.value | json }}</pre>
+
       </form>
     </div>
   `,
@@ -31,10 +39,10 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 export class StockInventoryComponent {
   form = new FormGroup({
     store: new FormGroup({
-      branch: new FormControl('B'),
-      code: new FormControl('1'),
-    }),
-  });
+      branch: new FormControl('B182'),
+      code: new FormControl('1234')
+    })
+  })
 
   onSubmit() {
     console.log('Submit:', this.form.value);
