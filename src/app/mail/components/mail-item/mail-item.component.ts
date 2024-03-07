@@ -1,13 +1,13 @@
 import { DatePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Mail } from '../../models/mail.interface';
-import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'mail-item',
   standalone: true,
-  imports: [RouterModule, DatePipe],
+  imports: [DatePipe],
   template: `
     <a class="mail-item" (click)="navigateToMessage()">
       <h3>
@@ -20,7 +20,8 @@ import { Router, RouterModule } from '@angular/router';
   styleUrl: './mail-item.component.scss',
 })
 export class MailItemComponent {
-  @Input() message!: Mail;
+  @Input() 
+  message!: Mail;
 
   constructor(private router: Router) {}
 
