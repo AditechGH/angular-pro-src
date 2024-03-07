@@ -1,27 +1,34 @@
 import { Routes } from '@angular/router';
 
-import { MailFolderComponent } from './containers/mail-folder/mail-folder.component';
+import { MailAppComponent } from './components/mail-app/mail-app.component';
 import { MailViewComponent } from './components/mail-view/mail-view.component';
+import { MailFolderComponent } from './containers/mail-folder/mail-folder.component';
 
-import { mailFolderResolver } from './containers/mail-folder/mail-folder.resolve';
+import { canActivateChild } from '../auth/auth.guard';
 import { mailViewResolver } from './components/mail-view/mail-view.resolve';
+import { mailFolderResolver } from './containers/mail-folder/mail-folder.resolve';
 
-// routes
-export const routes: Routes = [
+export const mailRoutes: Routes = [
   {
-    path: 'folder/:name',
-    component: MailFolderComponent,
-    resolve: {
-      messages: mailFolderResolver
-    }
+    path: 'mail',
+    component: MailAppComponent,
+    canActivateChild: [canActivateChild],
+    children: [
+      {
+        path: 'folder/:name',
+        component: MailFolderComponent,
+        resolve: {
+          messages: mailFolderResolver,
+        },
+      },
+      {
+        path: 'message/:id',
+        component: MailViewComponent,
+        outlet: 'pane',
+        resolve: {
+          message: mailViewResolver,
+        },
+      },
+    ],
   },
-  {
-    path: 'message/:id',
-    component: MailViewComponent,
-    outlet: 'pane',
-    resolve: {
-      message: mailViewResolver
-    }
-  },
-  { path: '', pathMatch: 'full', redirectTo: 'folder/inbox' },
 ];

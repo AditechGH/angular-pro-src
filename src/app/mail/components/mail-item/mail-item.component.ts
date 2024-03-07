@@ -1,13 +1,13 @@
 import { DatePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 import { Mail } from '../../models/mail.interface';
-import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'mail-item',
   standalone: true,
-  imports: [RouterModule, DatePipe],
+  imports: [RouterLink, RouterLinkActive, DatePipe],
   template: `
     <a
       class="mail-item"
