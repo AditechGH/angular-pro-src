@@ -5,7 +5,8 @@ import { Directive, HostListener } from '@angular/core';
   standalone: true,
 })
 export class CreditCardDirective {
-  @HostListener('input', ['$event']) onKeyDown(event: KeyboardEvent) {
+  @HostListener('input', ['$event'])
+  onKeyDown(event: KeyboardEvent) {
     const input = event.target as HTMLInputElement;
 
     let trimmed = input.value.replace(/\s+/g, '');
