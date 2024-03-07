@@ -1,9 +1,9 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
 import { Observable, map } from 'rxjs';
+
 import { Mail } from '../../models/mail.interface';
-import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-mail-view',
@@ -15,7 +15,7 @@ import { AsyncPipe } from '@angular/common';
       <p>{{ (message | async)?.full }}</p>
     </div>
     <div class="mail-reply">
-      <textarea 
+      <textarea
         (change)="updateReply($event)"
         placeholder="Type your reply..."
         [value]="reply"
@@ -39,7 +39,7 @@ export class MailViewComponent implements OnInit {
   }
 
   updateReply(event: Event) {
-    this.reply = (event.target as HTMLInputElement).value
+    this.reply = (event.target as HTMLInputElement).value;
   }
 
   sendReply() {
