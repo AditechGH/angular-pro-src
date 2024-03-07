@@ -1,13 +1,22 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-
-import { CreditCardComponent } from './credit-card/containers/credit-card/credit-card.component';
+import { CreditCardDirective } from './credit-card/credit-card.directive';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CreditCardComponent],
-  template: `<app-credit-card></app-credit-card>`,
-  styles: [``],
+  imports: [CreditCardDirective],
+  template: `
+    <div>
+      <label>
+        Credit Card Number
+        <input
+          name="credit-card"
+          type="text"
+          placeholder="Enter your 16-digit card number"
+          credit-card
+        />
+      </label>
+    </div>
+  `,
 })
 export class AppComponent {}
