@@ -13,5 +13,6 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
   styleUrl: './stock-products.component.scss'
 })
 export class StockProductsComponent {
-  @Input() parent!: FormGroup;
+  @Input() 
+  parent!: FormGroup;
 }
