@@ -19,7 +19,7 @@ import { StockValidators } from './stock-inventory.validators';
 import { StockInventoryService } from '../../services/stock-inventory.service';
 
 import { Product } from '../../models/product.interface';
-import { StockItem } from '../../models/stock.interface';
+import { StockItem } from '../../models/stock-item.interface';
 
 @Component({
   selector: 'stock-inventory',
@@ -66,7 +66,9 @@ import { StockItem } from '../../models/stock.interface';
 })
 export class StockInventoryComponent implements OnInit {
   products: Product[] = [];
+
   total!: number;
+  
   productMap!: Map<number, Product>;
 
   form = this.fb.group(

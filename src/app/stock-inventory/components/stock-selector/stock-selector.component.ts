@@ -42,8 +42,11 @@ import { Product } from '../../models/product.interface';
   styleUrl: './stock-selector.component.scss',
 })
 export class StockSelectorComponent {
-  @Input() parent!: FormGroup;
-  @Input() products!: Product[];
+  @Input() 
+  parent!: FormGroup;
+
+  @Input() 
+  products!: Product[];
 
   @Output() added = new EventEmitter<any>();
 
