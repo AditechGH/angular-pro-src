@@ -5,12 +5,10 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   template: `
-    <p>
-      dashboard works!
-    </p>
+    <div>
+      <h1>Dashboard</h1>
+    </div>
   `,
   styleUrl: './dashboard.component.scss'
 })
-export class DashboardComponent {
-
-}
+export class DashboardComponent {}

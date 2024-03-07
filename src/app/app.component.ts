@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
-
-import { MailAppComponent } from './mail/components/mail-app/mail-app.component';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterModule, MailAppComponent],
+  imports: [RouterLink, RouterLinkActive, RouterOutlet],
   template: `
     <div class="app">
       <header>
@@ -36,7 +34,7 @@ import { MailAppComponent } from './mail/components/mail-app/mail-app.component'
             Dashboard
           </a>
         </nav>
-        <mail-app></mail-app>
+        <router-outlet></router-outlet>
       </div>
     </div>
   `,
