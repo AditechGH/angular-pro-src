@@ -16,7 +16,7 @@ import { StockSelectorComponent } from '../../components/stock-selector/stock-se
 import { StockInventoryService } from '../../services/stock-inventory.service';
 
 import { Product } from '../../models/product.interface';
-import { Stock } from '../../models/stock.interface';
+import { StockItem } from '../../models/stock-item.interface';
 
 @Component({
   selector: 'stock-inventory',
@@ -85,7 +85,7 @@ export class StockInventoryComponent implements OnInit {
     const products = this.stockService.getProducts();
 
     forkJoin([cart, products]).subscribe(
-      ([cart, products]: [Stock[], Product[]]) => {
+      ([cart, products]: [StockItem[], Product[]]) => {
         const myMap = products.map<[number, Product]>((product) => [
           product.id,
           product,
@@ -95,17 +95,17 @@ export class StockInventoryComponent implements OnInit {
         this.products = products;
         cart.forEach((item) => this.addStock(item));
 
-        this.calculateTotal(this.form.get('stock')?.value as Stock[]);
+        this.calculateTotal(this.form.get('stock')?.value as StockItem[]);
         this.form
           .get('stock')
           ?.valueChanges.subscribe((value) =>
-            this.calculateTotal(value as Stock[])
+            this.calculateTotal(value as StockItem[])
           );
       }
     );
   }
 
-  calculateTotal(value: Stock[]) {
+  calculateTotal(value: StockItem[]) {
     const total = value.reduce((prev, next) => {
       return (
         prev + next.quantity! * this.productMap.get(next.product_id!)!.price
@@ -114,14 +114,14 @@ export class StockInventoryComponent implements OnInit {
     this.total = total;
   }
 
-  createStock(stock: Stock) {
+  createStock(stock: StockItem) {
     return this.fb.group({
       product_id: stock.product_id || '',
       quantity: stock.quantity || 10,
     });
   }
 
-  addStock(stock: Stock) {
+  addStock(stock: StockItem) {
     const control = this.form.get('stock') as FormArray;
     control.push(this.createStock(stock));
   }
