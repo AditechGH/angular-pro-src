@@ -3,7 +3,6 @@ import { Component, Input } from '@angular/core';
 
 import { Mail } from '../../models/mail.interface';
 
-
 @Component({
   selector: 'mail-item',
   standalone: true,
@@ -20,5 +19,6 @@ import { Mail } from '../../models/mail.interface';
   styleUrl: './mail-item.component.scss',
 })
 export class MailItemComponent {
-  @Input() message!: Mail;
+  @Input() 
+  message!: Mail;
 }
