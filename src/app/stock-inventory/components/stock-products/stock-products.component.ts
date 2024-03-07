@@ -35,9 +35,11 @@ import {
   styleUrl: './stock-products.component.scss',
 })
 export class StockProductsComponent {
-  @Input() parent!: FormGroup;
+  @Input() 
+  parent!: FormGroup;
 
-  @Output() removed = new EventEmitter<any>();
+  @Output() 
+  removed = new EventEmitter<any>();
 
   onRemove(group: AbstractControl, index: number) {
     this.removed.emit({ group, index });

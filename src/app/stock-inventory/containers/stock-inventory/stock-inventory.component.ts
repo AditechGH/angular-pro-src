@@ -12,7 +12,7 @@ import { StockProductsComponent } from '../../components/stock-products/stock-pr
 import { StockSelectorComponent } from '../../components/stock-selector/stock-selector.component';
 
 import { Product } from '../../models/product.interface';
-import { Stock } from '../../models/stock.interface';
+import { StockItem } from '../../models/stock-item.interface';
 
 @Component({
   selector: 'stock-inventory',
@@ -73,14 +73,14 @@ export class StockInventoryComponent {
 
   constructor(private fb: FormBuilder) {}
 
-  createStock(stock: Stock) {
+  createStock(stock: StockItem) {
     return this.fb.group({
-      product_id: stock.product_id || 0,
+      product_id: stock.product_id || '',
       quantity: stock.quantity || 10,
     });
   }
 
-  addStock(stock: Stock) {
+  addStock(stock: StockItem) {
     const control = this.form.get('stock') as FormArray;
     control.push(this.createStock(stock));
   }
