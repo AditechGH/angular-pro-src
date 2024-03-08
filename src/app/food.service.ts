@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { API_TOKEN } from '../token';
+import { API_TOKEN } from './token';
 
 @Injectable()
 export class FoodService {

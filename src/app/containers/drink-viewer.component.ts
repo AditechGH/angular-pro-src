@@ -2,15 +2,15 @@ import { AsyncPipe, CurrencyPipe, NgForOf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { FoodService } from '../../food.service';
+import { FoodService } from '../food.service';
 
-interface Side {
+interface Drink {
   name: string;
   price: number;
 }
 
 @Component({
-  selector: 'side-viewer',
+  selector: 'drink-viewer',
   standalone: true,
   imports: [NgForOf, AsyncPipe, CurrencyPipe],
   providers: [FoodService],
@@ -21,9 +21,10 @@ interface Side {
       </div>
     </div>
   `,
+  styles: [``],
 })
-export class SideViewerComponent implements OnInit {
-  items$!: Observable<Side[]>;
+export class DrinkViewerComponent implements OnInit {
+  items$!: Observable<Drink[]>;
   constructor(private foodService: FoodService) {}
   ngOnInit(): void {
     this.items$ = this.foodService.getFood();
