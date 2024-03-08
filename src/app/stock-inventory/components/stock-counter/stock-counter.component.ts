@@ -1,11 +1,12 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'stock-counter',
   standalone: true,
   imports: [],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="stock-counter" [class.focused]="focus">
+    <div class="stock-counter">
       <div>
         <div
           tabindex="0"
@@ -37,14 +38,14 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrl: './stock-counter.component.scss',
 })
 export class StockCounterComponent {
-  @Input() step: number = 10;
-  @Input() min: number = 10;
-  @Input() max: number = 1000;
+  @Input() step: number = 1;
+  @Input() min: number = 0;
+  @Input() max: number = 100;
 
   @Output() changed = new EventEmitter<number>();
 
-  value: number = 10;
-  focus!: boolean;
+  value: number = 0;
+  focused!: boolean;
 
   onKeyDown(event: KeyboardEvent) {
     const handlers: { [key: string]: Function } = {
@@ -59,13 +60,13 @@ export class StockCounterComponent {
   }
 
   onBlur(event: FocusEvent) {
-    this.focus = false;
+    this.focused = false;
     event.preventDefault();
     event.stopPropagation();
   }
 
   onFocus(event: FocusEvent) {
-    this.focus = true;
+    this.focused = true;
     event.preventDefault();
     event.stopPropagation();
   }
