@@ -5,7 +5,6 @@ import { Component, DoCheck, NgZone, OnInit } from '@angular/core';
   standalone: true,
   imports: [],
   template: ` <div>Counter: {{ counter }}</div> `,
-  styles: [``],
 })
 export class AppComponent implements OnInit, DoCheck {
   counter = 0;
