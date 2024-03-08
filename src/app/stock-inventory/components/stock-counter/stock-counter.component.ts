@@ -1,112 +1,79 @@
-import { Component, Input, forwardRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-
-const COUNTER_CONTROL_ACCESSOR = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => StockCounterComponent),
-  multi: true,
-};
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ControlValueAccessor } from '@angular/forms';
 
 @Component({
   selector: 'stock-counter',
   standalone: true,
   imports: [],
-  providers: [COUNTER_CONTROL_ACCESSOR],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="stock-counter" [class.focused]="focus">
+    <div class="stock-counter">
       <div>
-        <div
-          tabindex="0"
-          (keydown)="onKeyDown($event)"
+        <div 
+          (keydown)="onKeyUp($event)"
           (blur)="onBlur($event)"
           (focus)="onFocus($event)"
-        >
+          tabindex="0">
           <p>{{ value }}</p>
-          <div>
-            <button
-              type="button"
-              (click)="increment()"
-              [disabled]="value === max"
-            >
+          <div tabindex="-1">
+            <button type="button" tabindex="-1" (click)="increment()" [disabled]="value === max">
               +
             </button>
-            <button
-              type="button"
-              (click)="decrement()"
-              [disabled]="value === min"
-            >
+            <button type="button" tabindex="-1" (click)="decrement()" [disabled]="value === min">
               -
             </button>
           </div>
         </div>
       </div>
     </div>
-  `,
-  styleUrl: './stock-counter.component.scss',
+  `
 })
-export class StockCounterComponent implements ControlValueAccessor {
-  private onTouch!: Function;
-  private onModelChange!: Function;
+export class StockCounterComponent {
+  @Input() step: number = 1;
+  @Input() min: number = 0;
+  @Input() max: number = 100;
 
-  registerOnChange(fn: any): void {
-    this.onModelChange = fn;
+  @Output() changed = new EventEmitter<number>();
+
+  value: number = 0;
+  focused!: boolean;
+
+  increment() {
+    if (this.value < this.max) {
+      this.value = this.value + this.step;
+      this.changed.emit(this.value);
+    }
   }
 
-  registerOnTouched(fn: any): void {
-    this.onTouch = fn;
+  decrement() {
+    if (this.value > this.min) {
+      this.value = this.value - this.step;
+      this.changed.emit(this.value);
+    }
   }
 
-  writeValue(value: number): void {
-    this.value = value || 0;
-  }
-
-  @Input() step: number = 10;
-  @Input() min: number = 10;
-  @Input() max: number = 1000;
-
-  value: number = 10;
-
-  focus!: boolean;
   onKeyDown(event: KeyboardEvent) {
     const handlers: { [key: string]: Function } = {
       ArrowDown: () => this.decrement(),
       ArrowUp: () => this.increment(),
     };
+
     if (handlers[event.code]) {
       handlers[event.code]();
       event.preventDefault();
       event.stopPropagation();
     }
-    this.onTouch();
   }
 
   onBlur(event: FocusEvent) {
-    this.focus = false;
+    this.focused = false;
     event.preventDefault();
     event.stopPropagation();
-    this.onTouch();
   }
 
   onFocus(event: FocusEvent) {
-    this.focus = true;
+    this.focused = true;
     event.preventDefault();
     event.stopPropagation();
-    this.onTouch();
-  }
-
-  increment() {
-    if (this.value < this.max) {
-      this.value += this.step;
-      // this.onModelChange(this.value);
-    }
-    // this.onTouch();
-  }
-
-  decrement() {
-    if (this.value > this.min) {
-      this.value -= this.step;
-      // this.onModelChange(this.value);
-    }
-    // this.onTouch();
   }
 }
