@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, forwardRef } from '@angular/core';
+import { Component, Input, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 const COUNTER_CONTROL_ACCESSOR = {
@@ -64,11 +64,9 @@ export class StockCounterComponent implements ControlValueAccessor {
   @Input() min: number = 10;
   @Input() max: number = 1000;
 
-  @Output() changed = new EventEmitter<number>();
-
   value: number = 10;
   focus!: boolean;
-  
+
   onKeyDown(event: KeyboardEvent) {
     const handlers: { [key: string]: Function } = {
       ArrowDown: () => this.decrement(),
@@ -79,7 +77,7 @@ export class StockCounterComponent implements ControlValueAccessor {
       event.preventDefault();
       event.stopPropagation();
     }
-    // this.onTouch();
+    this.onTouch();
   }
 
   onBlur(event: FocusEvent) {
@@ -98,15 +96,13 @@ export class StockCounterComponent implements ControlValueAccessor {
 
   increment() {
     this.value = Math.min(this.value + this.step, this.max);
-    this.changed.emit(this.value);
-    // this.onModelChange(this.value);
-    // this.onTouch();
+    this.onModelChange(this.value);
+    this.onTouch();
   }
 
   decrement() {
     this.value = Math.max(this.value - this.step, this.min);
-    this.changed.emit(this.value);
-    // this.onModelChange(this.value);
-    // this.onTouch();
+    this.onModelChange(this.value);
+    this.onTouch();
   }
 }
