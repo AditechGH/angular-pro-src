@@ -1,28 +1,22 @@
 import { Component } from '@angular/core';
-
-import { NgForOf, AsyncPipe } from '@angular/common';
-import { Store } from './store';
+import { SongsFavouritesComponent } from './songs/components/songs-favourites/songs-favourites.component';
+import { SongsListenedComponent } from './songs/components/songs-listened/songs-listened.component';
+import { SongsPlaylistComponent } from './songs/components/songs-playlist/songs-playlist.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [NgForOf, AsyncPipe],
+  imports: [
+    SongsFavouritesComponent,
+    SongsListenedComponent,
+    SongsPlaylistComponent,
+  ],
   template: `
     <div>
-      <div *ngFor="let todo of todos$ | async">
-        {{ todo.name }}
-      </div>
+      <songs-playlist></songs-playlist>
+      <songs-listened></songs-listened>
+      <songs-favourites></songs-favourites>
     </div>
   `,
-  styles: [``],
 })
-export class AppComponent {
-  todos$ = this.store.select<any[]>('todos');
-
-  constructor(private store: Store) {
-    this.store.set('todos', [
-      { id: 1, name: 'Eat dinner' },
-      { id: 2, name: 'Do washing' },
-    ]);
-  }
-}
+export class AppComponent {}
