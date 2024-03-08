@@ -4,6 +4,10 @@ import { Component } from '@angular/core';
   selector: 'app-root',
   standalone: true,
   imports: [],
-  template: ``,
+  template: `
+    <div>
+        Hello world!
+    <div>
+  `,
 })
 export class AppComponent {}

@@ -36,4 +36,4 @@ To execute the unit tests, run:
 npm run test
 ```
 
-This will execure the tests via [Karma](https://karma-runner.github.io).
+This will execute the tests via [Karma](https://karma-runner.github.io).
