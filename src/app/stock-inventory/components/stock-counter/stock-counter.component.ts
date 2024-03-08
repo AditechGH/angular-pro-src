@@ -1,50 +1,41 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'stock-counter',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [],
   template: `
-    <div class="stock-counter" [class.focused]="focus">
+    <div class="stock-counter">
       <div>
-        <div
-          tabindex="0"
-          (keydown)="onKeyDown($event)"
+        <div 
+          (keydown)="onKeyUp($event)"
           (blur)="onBlur($event)"
           (focus)="onFocus($event)"
-        >
+          tabindex="0">
           <p>{{ value }}</p>
-          <div>
-            <button
-              type="button"
-              (click)="increment()"
-              [disabled]="value === max"
-            >
+          <div tabindex="-1">
+            <button type="button" tabindex="-1" (click)="increment()" [disabled]="value === max">
               +
             </button>
-            <button
-              type="button"
-              (click)="decrement()"
-              [disabled]="value === min"
-            >
+            <button type="button" tabindex="-1" (click)="decrement()" [disabled]="value === min">
               -
             </button>
           </div>
         </div>
       </div>
     </div>
-  `,
-  styleUrl: './stock-counter.component.scss',
+  `
 })
 export class StockCounterComponent {
-  @Input() step: number = 10;
-  @Input() min: number = 10;
-  @Input() max: number = 1000;
+  @Input() step: number = 1;
+  @Input() min: number = 0;
+  @Input() max: number = 100;
 
   @Output() changed = new EventEmitter<number>();
 
-  value: number = 10;
-  focus!: boolean;
+  value: number = 0;
+  focused!: boolean;
 
   onKeyDown(event: KeyboardEvent) {
     const handlers: { [key: string]: Function } = {
@@ -59,13 +50,13 @@ export class StockCounterComponent {
   }
 
   onBlur(event: FocusEvent) {
-    this.focus = false;
+    this.focused = false;
     event.preventDefault();
     event.stopPropagation();
   }
 
   onFocus(event: FocusEvent) {
-    this.focus = true;
+    this.focused = true;
     event.preventDefault();
     event.stopPropagation();
   }
