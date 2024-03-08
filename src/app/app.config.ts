@@ -1,9 +1,5 @@
-import { HttpClientModule } from '@angular/common/http';
-import { ApplicationConfig, importProvidersFrom } from '@angular/core';
-
-import { SongsService } from './store/songs/services/songs.service';
-import { Store } from './store/store';
+import { ApplicationConfig } from '@angular/core';
 
 export const appConfig: ApplicationConfig = {
-  providers: [importProvidersFrom(HttpClientModule), Store, SongsService],
+  providers: [],
 };
