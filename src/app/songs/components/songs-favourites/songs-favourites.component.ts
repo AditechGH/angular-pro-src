@@ -2,8 +2,9 @@ import { AsyncPipe, NgForOf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Store } from '../../../store';
 import { SongsService } from '../../services/songs.service';
+
+import { Store } from '../../../store';
 @Component({
   selector: 'songs-favourites',
   standalone: true,
