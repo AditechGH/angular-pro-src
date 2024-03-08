@@ -2,18 +2,18 @@ import { AsyncPipe, CurrencyPipe, NgForOf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { FoodService } from '../../food.service';
+import { FoodService } from '../food.service';
 
-interface Pizza {
+interface Drink {
   name: string;
   price: number;
 }
 
 @Component({
-  selector: 'pizza-viewer',
+  selector: 'drink-viewer',
   standalone: true,
   imports: [NgForOf, AsyncPipe, CurrencyPipe],
-  providers: [FoodService],
+  providers: [{ provide: FoodService, useClass: FoodService }],
   template: `
     <div>
       <div *ngFor="let item of items$ | async">
@@ -22,8 +22,8 @@ interface Pizza {
     </div>
   `,
 })
-export class PizzaViewerComponent implements OnInit {
-  items$!: Observable<Pizza[]>;
+export class DrinkViewerComponent implements OnInit {
+  items$!: Observable<Drink[]>;
   constructor(private foodService: FoodService) {}
   ngOnInit(): void {
     this.items$ = this.foodService.getFood();

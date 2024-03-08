@@ -2,7 +2,7 @@ import { AsyncPipe, CurrencyPipe, NgForOf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { FoodService } from '../../food.service';
+import { FoodService } from '../food.service';
 
 interface Side {
   name: string;
