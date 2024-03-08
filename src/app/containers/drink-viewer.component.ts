@@ -3,26 +3,25 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { FoodService } from '../../food.service';
+import { FoodService } from '../food.service';
 
-
-interface Side {
+interface Drink {
   name: string;
   price: number;
 }
 
-export function SideFactory(http: HttpClient) {
-  return new FoodService(http, '/api/sides');
+export function DrinkFactory(http: HttpClient) {
+  return new FoodService(http, '/api/drinks');
 }
 
 @Component({
-  selector: 'side-viewer',
+  selector: 'drink-viewer',
   standalone: true,
   imports: [NgForOf, AsyncPipe, CurrencyPipe],
   providers: [
     {
       provide: FoodService,
-      useFactory: SideFactory,
+      useFactory: DrinkFactory,
       deps: [HttpClient],
     },
   ],
@@ -33,9 +32,10 @@ export function SideFactory(http: HttpClient) {
       </div>
     </div>
   `,
+  styles: [``],
 })
-export class SideViewerComponent implements OnInit {
-  items$!: Observable<Side[]>;
+export class DrinkViewerComponent implements OnInit {
+  items$!: Observable<Drink[]>;
   constructor(private foodService: FoodService) {}
   ngOnInit(): void {
     this.items$ = this.foodService.getFood();

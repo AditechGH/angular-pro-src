@@ -3,26 +3,25 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { FoodService } from '../../food.service';
+import { FoodService } from '../food.service';
 
-
-interface Drink {
+interface Pizza {
   name: string;
   price: number;
 }
 
-export function DrinkFactory(http: HttpClient) {
-  return new FoodService(http, '/api/drinks');
+export function PizzaFactory(http: HttpClient) {
+  return new FoodService(http, '/api/pizzas');
 }
 
 @Component({
-  selector: 'drink-viewer',
+  selector: 'pizza-viewer',
   standalone: true,
   imports: [NgForOf, AsyncPipe, CurrencyPipe],
   providers: [
     {
       provide: FoodService,
-      useFactory: DrinkFactory,
+      useFactory: PizzaFactory,
       deps: [HttpClient],
     },
   ],
@@ -33,10 +32,9 @@ export function DrinkFactory(http: HttpClient) {
       </div>
     </div>
   `,
-  styles: [``],
 })
-export class DrinkViewerComponent implements OnInit {
-  items$!: Observable<Drink[]>;
+export class PizzaViewerComponent implements OnInit {
+  items$!: Observable<Pizza[]>;
   constructor(private foodService: FoodService) {}
   ngOnInit(): void {
     this.items$ = this.foodService.getFood();
