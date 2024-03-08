@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
 
 import { Product } from '../models/product.interface';
-import { StockItem } from '../models/stock.interface';
+import { StockItem } from '../models/stock-item.interface';
 
 @Injectable()
 export class StockInventoryService {
