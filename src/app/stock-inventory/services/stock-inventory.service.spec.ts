@@ -24,6 +24,7 @@ const productItems = [
 ];
 
 describe('StockInventoryService', () => {
+  
   let service: StockInventoryService;
   let http: HttpClient;
 
