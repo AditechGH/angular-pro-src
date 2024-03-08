@@ -4,7 +4,7 @@
       "id": 1,
       "artist": "Oasis",
       "track": "Half The World Away",
-      "listened": false,
+      "listened": true,
       "favourite": true
     },
     {
@@ -26,35 +26,35 @@
       "artist": "Third Eye Blind",
       "track": "Get Me Out Of Here",
       "listened": true,
-      "favourite": false
+      "favourite": true
     },
     {
       "id": 5,
       "artist": "The Chainsmokers",
       "track": "Closer",
-      "listened": false,
+      "listened": true,
       "favourite": false
     },
     {
       "id": 6,
       "artist": "Sia",
       "track": "Cheap Thrills",
-      "listened": true,
+      "listened": false,
       "favourite": true
     },
     {
       "id": 7,
       "artist": "Birdy",
       "track": "Wild Horses",
-      "listened": false,
+      "listened": true,
       "favourite": true
     },
     {
       "id": 8,
       "artist": "Stereophonics",
       "track": "Local Boy In The Photograph",
-      "listened": false,
-      "favourite": false
+      "listened": true,
+      "favourite": true
     }
   ]
 }
