@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
-import { FilesizePipe } from './filesize.pipe';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { FilesizePipe } from './filesize.pipe';
+
 describe('FileSizePipe', () => {
+
   describe('Shallow FileSizePipe test', () => {
+
     @Component({
       template: `Size: {{ size | filesize : suffix }}`,
       standalone: true,
@@ -49,13 +52,14 @@ describe('FileSizePipe', () => {
   });
 
   describe('Isolate FileSizePipe test', () => {
+
     const pipe = new FilesizePipe();
 
     it('should convert bytes to megabytes', () => {
       expect(pipe.transform(123456789)).toBe('117.74MB');
       expect(pipe.transform(987654321)).toBe('941.90MB');
     });
-    
+
     it('should use the default extension when not supplied', () => {
       expect(pipe.transform(123456789)).toBe('117.74MB');
       expect(pipe.transform(987654321)).toBe('941.90MB');
@@ -63,7 +67,7 @@ describe('FileSizePipe', () => {
 
     it('should override the extension when supplied', () => {
       expect(pipe.transform(123456789, 'myExt')).toBe('117.74myExt');
-      expect(pipe.transform(987654321, 'myExt')).toBe('941.90myExt');
+      expect(pipe.transform(987654321, 'anotherExt')).toBe('941.90anotherExt');
     });
   });
 });
