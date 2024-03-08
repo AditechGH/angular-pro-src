@@ -1,4 +1,4 @@
 export interface State {
-  [x: string]: any;
+  [key: string]: any;
   playlist: any;
 }
