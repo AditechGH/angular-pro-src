@@ -1,14 +1,19 @@
+import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 
-import { PizzaViewerComponent } from './viewer/containers/pizza-viewer/pizza-viewer.component';
-import { SideViewerComponent } from './viewer/containers/side-viewer/side-viewer.component';
-import { DrinkViewerComponent } from './viewer/containers/drink-viewer/drink-viewer.component';
-import { HttpClientModule } from '@angular/common/http';
+import { DrinkViewerComponent } from './containers/drink-viewer.component';
+import { PizzaViewerComponent } from './containers/pizza-viewer.component';
+import { SideViewerComponent } from './containers/side-viewer.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [HttpClientModule, PizzaViewerComponent, SideViewerComponent, DrinkViewerComponent],
+  imports: [
+    HttpClientModule,
+    PizzaViewerComponent,
+    SideViewerComponent,
+    DrinkViewerComponent,
+  ],
   template: `
     <div>
       <pizza-viewer></pizza-viewer>
@@ -16,16 +21,14 @@ import { HttpClientModule } from '@angular/common/http';
       <drink-viewer></drink-viewer>
     </div>
   `,
-  styles: [
-    `
-      pizza-viewer,
-      side-viewer,
-      drink-viewer {
-        display: block;
-        border-bottom: 2px solid #eee;
-        padding: 20px 0;
-      }
-    `,
-  ],
+    styles: [`
+    pizza-viewer,
+    side-viewer,
+    drink-viewer {
+      display: block;
+      border-bottom: 2px solid #eee;
+      padding: 20px 0;
+    }
+  `],
 })
 export class AppComponent {}

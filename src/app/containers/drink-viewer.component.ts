@@ -2,7 +2,7 @@ import { AsyncPipe, CurrencyPipe, NgForOf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { FoodService } from '../../food.service';
+import { FoodService } from '../food.service';
 
 interface Drink {
   name: string;
@@ -21,7 +21,6 @@ interface Drink {
       </div>
     </div>
   `,
-  styles: [``],
 })
 export class DrinkViewerComponent implements OnInit {
   items$!: Observable<Drink[]>;
