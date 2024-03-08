@@ -1,25 +1,22 @@
 import { CurrencyPipe, JsonPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
-  AbstractControl,
   FormArray,
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { forkJoin, map } from 'rxjs';
+import { forkJoin } from 'rxjs';
 
 import { StockBranchComponent } from '../../components/stock-branch/stock-branch.component';
 import { StockProductsComponent } from '../../components/stock-products/stock-products.component';
 import { StockSelectorComponent } from '../../components/stock-selector/stock-selector.component';
 
-import { StockValidators } from './stock-inventory.validators';
-
 import { StockInventoryService } from '../../services/stock-inventory.service';
 
 import { Product } from '../../models/product.interface';
-import { StockItem } from '../../models/stock.interface';
+import { StockItem } from '../../models/stock-item.interface';
 
 @Component({
   selector: 'stock-inventory',
@@ -65,24 +62,17 @@ import { StockItem } from '../../models/stock.interface';
 })
 export class StockInventoryComponent implements OnInit {
   products: Product[] = [];
-  total!: number;
+
   productMap!: Map<number, Product>;
 
-  form = this.fb.group(
-    {
-      store: this.fb.group({
-        branch: [
-          '',
-          [Validators.required, StockValidators.checkBranch],
-          [this.validateBranch.bind(this)],
-        ],
-        code: ['', Validators.required],
-      }),
-      selector: this.createStock({}),
-      stock: this.fb.array([]),
-    },
-    { validator: StockValidators.checkStockExists }
-  );
+  form = this.fb.group({
+    store: this.fb.group({
+      branch: [''],
+      code: ['', Validators.required],
+    }),
+    selector: this.createStock({}),
+    stock: this.fb.array([]),
+  });
 
   constructor(
     private fb: FormBuilder,
@@ -103,32 +93,8 @@ export class StockInventoryComponent implements OnInit {
         this.productMap = new Map<number, Product>(myMap);
         this.products = products;
         cart.forEach((item) => this.addStock(item));
-
-        this.calculateTotal(this.form.get('stock')?.value as StockItem[]);
-        this.form
-          .get('stock')
-          ?.valueChanges.subscribe((value) =>
-            this.calculateTotal(value as StockItem[])
-          );
       }
     );
-  }
-
-  validateBranch(control: AbstractControl) {
-    return this.stockService
-      .checkBranchId(control.value)
-      .pipe(
-        map((response: boolean) => (response ? null : { unknownBranch: true }))
-      );
-  }
-
-  calculateTotal(value: StockItem[]) {
-    const total = value.reduce((prev, next) => {
-      return (
-        prev + next.quantity! * this.productMap.get(next.product_id!)!?.price
-      );
-    }, 0);
-    this.total = total;
   }
 
   createStock(stock: StockItem) {
