@@ -1,16 +1,13 @@
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 
-import { FoodstoreComponent } from './foodstore/foodstore.component';
+import { FoodStoreService } from './foodstore/food-store.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [FoodstoreComponent],
-  template: `
-    <div>
-      <foodstore></foodstore>
-    </div>
-  `,
+  imports: [AsyncPipe],
+  template: ` <div>Food Store ({{ (store | async)?.name }})</div> `,
   styles: [
     `
       pizza-viewer,
@@ -23,4 +20,7 @@ import { FoodstoreComponent } from './foodstore/foodstore.component';
     `,
   ],
 })
-export class AppComponent {}
+export class AppComponent {
+  store = this.foodService.getStore();
+  constructor(private foodService: FoodStoreService) {}
+}
